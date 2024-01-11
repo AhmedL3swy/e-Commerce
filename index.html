@@ -101,30 +101,28 @@
         <form action="finishSign.html" id="registrationForm">
             <h1>Create account</h1>
             <div class="UserName">
-                <label for="userName">YourName <span class="star">*</span> </label>
+                <label for="userName">YourName <span class="star" title="Required">*</span> </label>
                 <input type="text" id="userName" placeholder="First and Last name">
                 <span id="error_name"></span>
             </div>
             <div class="UserPass">
-                <label for="userPassword">Password <span class="star">*</span>  </label>
+                <label for="userPassword">Password <span class="star" title="Required">*</span>  </label>
                 <div class="input">
                     <input type="password" id="userPassword" placeholder="At least 6 characters">
-                    <i id="with" class="fa-regular fa-eye-slash with"></i>
-                    <i class="fa-regular fa-eye without"></i>
+                    <img src="images/eye-close.png" class="with-first" alt="">
                     <span id="error_pass"></span>
                 </div>
             </div>
             <div class="UserPass">
-                <label for="confirmPassword">Re-enter password <span class="star">*</span>  </label>
+                <label for="confirmPassword">Re-enter password <span class="star" title="Required">*</span>  </label>
                 <div class="input">
                     <input type="password" id="confirmPassword" placeholder="Re-enter password">
-                    <i id="with" class="fa-regular fa-eye-slash with"></i>
-                    <i class="fa-regular fa-eye without"></i>
+                    <img src="images/eye-close.png" class="with-second" alt="">
                     <span id="error_confirm"></span>
                 </div>
             </div>
             <div class="userEmail">
-                <label for="userMail">Your Mail <span class="star">*</span>  </label>
+                <label for="userMail">Your Mail <span class="star" title="Required">*</span>  </label>
                 <input type="email" id="userMail" placeholder="Enter A Valid Mail">
                 <span id="error_mail"></span>
             </div>
