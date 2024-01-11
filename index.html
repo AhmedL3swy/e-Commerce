@@ -6,6 +6,7 @@
     <!-- <link rel="stylesheet" href="bootstrap.min.css"> -->
     <title>Login</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/all.min.css">
 </head>
 <body>
 
@@ -100,26 +101,39 @@
         <form action="finishSign.html" id="registrationForm">
             <h1>Create account</h1>
             <div class="UserName">
-                <label for="userName">YourName: </label>
+                <label for="userName">YourName <span class="star">*</span> </label>
                 <input type="text" id="userName" placeholder="First and Last name">
+                <span id="error_name"></span>
             </div>
             <div class="UserPass">
-                <label for="userName">Password: </label>
-                <input type="password" id="userPassword" placeholder="At least 6 characters">
+                <label for="userPassword">Password <span class="star">*</span>  </label>
+                <div class="input">
+                    <input type="password" id="userPassword" placeholder="At least 6 characters">
+                    <i id="with" class="fa-regular fa-eye-slash with"></i>
+                    <i class="fa-regular fa-eye without"></i>
+                    <span id="error_pass"></span>
+                </div>
             </div>
             <div class="UserPass">
-                <label for="userName">Re-enter password: </label>
-                <input type="password" id="confirmPassword" placeholder="Re-enter password">
+                <label for="confirmPassword">Re-enter password <span class="star">*</span>  </label>
+                <div class="input">
+                    <input type="password" id="confirmPassword" placeholder="Re-enter password">
+                    <i id="with" class="fa-regular fa-eye-slash with"></i>
+                    <i class="fa-regular fa-eye without"></i>
+                    <span id="error_confirm"></span>
+                </div>
             </div>
             <div class="userEmail">
-                <label for="userMail">Your Mail: </label>
+                <label for="userMail">Your Mail <span class="star">*</span>  </label>
                 <input type="email" id="userMail" placeholder="Enter A Valid Mail">
+                <span id="error_mail"></span>
             </div>
             <button class="btn">Continue</button>
         </form>
     </div>
 
 <script src="js/script.js"></script>
+<script src="js/all.min.js"></script>
 <!-- <script src="bootstrap.min.js"></script> -->
 </body>
 </html>
