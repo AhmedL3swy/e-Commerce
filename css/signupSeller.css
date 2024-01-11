@@ -74,10 +74,11 @@ button:hover {
 .star {
   color: red;
 }
-#error_name,
+#error_name1,
 #error_pass,
 #error_confirm,
-#error_mail {
+#error_mail,
+#error_name2 {
   color: red;
   font-size: 14px;
 }

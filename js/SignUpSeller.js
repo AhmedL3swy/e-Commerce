@@ -1,6 +1,6 @@
 let sellers = [];
 
-let nameRegex = /^[A-Z][a-zA-Z]{2,12}\s[A-Z][a-zA-Z]{2,12}$/; // Ahmed Mohamed
+let nameRegex = /^[A-Z][a-zA-Z]{2,12}/; // Ahmed Mohamed
 let emailRegex = /^\w{4,15}@(yahoo|gmail|outlook).(com|net)$/; // ahmed@gmail.com
 let passRegex = /^[A-Z][a-zA-Z]{5,12}\d{1,}\D{1}[a-zA-Z]{3,12}$/; // Ahmedd99@ahd
 let numberRegex = /^01[0125]\d{8}$/; // 01026340338
@@ -25,7 +25,8 @@ document
   });
 
 function validateForm() {
-  var userName = document.getElementById("userName").value;
+  var userNameFirst = document.getElementById("FirstName").value;
+  var userNameLast = document.getElementById("LastName").value;
   var userPassword = document.getElementById("userPassword").value;
   var confirmPassword = document.getElementById("confirmPassword").value;
   var userMail = document.getElementById("userMail").value;
@@ -33,18 +34,13 @@ function validateForm() {
   let userZip = document.querySelector("#userZip").value;
   let userImg = document.querySelector("#inputfile").value;
 
-  var elErrorName = document.getElementById("error_name");
+  // var elErrorName = document.getElementById("error_name");
+  var elErrorNameOne = document.getElementById("error_name1");
+  var elErrorNameTwo = document.getElementById("error_name2");
   var elErrorPass = document.getElementById("error_pass");
   var elErrorConfirm = document.getElementById("error_confirm");
   var elErrorMail = document.getElementById("error_mail");
 
-  //to check the user exist or not
-  if (isUsernameExists(userName)) {
-    elErrorName.innerText =
-      "Username already exists. Please choose a different one.";
-    document.getElementById("userName").style.border = "2px solid red";
-    return false;
-  }
 
   //to check the mail exist or not
   if (isUsermailExists(userMail)) {
@@ -54,20 +50,36 @@ function validateForm() {
     return false;
   }
 
-  if (userName == "" || userName == null) {
-    elErrorName.innerText = "Please Provide Your Full Name and Last Name";
-    document.getElementById("userName").style.border = "2px solid red";
+  if (userNameFirst == "" || userNameFirst == null) {
+    elErrorNameOne.innerText = "Please Provide Your First Name";
+    document.getElementById("FirstName").style.border = "2px solid red";
     return false;
   }
 
-  if (!nameRegex.test(userName)) {
-    elErrorName.innerText = "Invalid Name Format";
-    document.getElementById("userName").style.border = "2px solid red";
+  if (!nameRegex.test(userNameFirst)) {
+    elErrorNameOne.innerText = "Invalid Name Format";
+    document.getElementById("FirstName").style.border = "2px solid red";
     return false;
   }
 
-  elErrorName.innerText = "";
-  document.getElementById("userName").style.border = "2px solid green";
+  elErrorNameOne.innerText = "";
+  document.getElementById("FirstName").style.border = "2px solid green";
+
+  if (userNameLast == "" || userNameLast == null) {
+    elErrorNameTwo.innerText = "Please Provide Your First Name";
+    document.getElementById("LastName").style.border = "2px solid red";
+    return false;
+  }
+
+  if (!nameRegex.test(userNameLast)) {
+    elErrorNameTwo.innerText = "Invalid Name Format";
+    document.getElementById("LastName").style.border = "2px solid red";
+    return false;
+  }
+
+  elErrorNameTwo.innerText = "";
+  document.getElementById("LastName").style.border = "2px solid green";
+
 
   if (userPassword == "" || userPassword == null) {
     elErrorPass.innerText =
@@ -157,9 +169,11 @@ function validateForm() {
   document.querySelector("#inputfile").style.border = "2px solid green";
 
   let seller = {
-    UserName: userName,
+    UserFirstName: userNameFirst,
+    UserLastName: userNameLast,
     UserPass: userPassword,
     UserMail: userMail,
+    UserPhone : userPhone,
   };
 
   sellers.push(seller);
@@ -196,10 +210,6 @@ withIconSecond.addEventListener("click", function () {
   }
 });
 
-//function to check the user name
-function isUsernameExists(username) {
-  return sellers.some((seller) => seller.UserName === username);
-}
 
 //function to check the user mail
 function isUsermailExists(usermail) {
