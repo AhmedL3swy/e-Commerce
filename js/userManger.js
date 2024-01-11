@@ -69,6 +69,41 @@ class UserManager {
       console.log("No users found.");
     }
   }
+  /**
+   * Find a user by email.
+   * @param {string} email - The email of the user.
+   * @returns {User} The user with the given email.
+   */
+  findUserByEmail(email) {
+    return this.users.find((user) => user.email === email);
+  }
+  /**
+   * Find a user by ID.
+   * @param {number} id - The ID of the user.
+   * @returns {User} The user with the given ID.
+   */
+  findUserById(id) {
+    return this.users.find((user) => user.id === id);
+  }
+  /**
+   * Authenticate user.
+   * @param {string} email - The email of the user.
+   * @param {string} password - The password of the user.
+   * @returns {user} -The user Data with the given Credentials.
+   */
+  authenticateUser(email, password) {
+    const user = this.findUserByEmail(email);
+    if (user && user.password === password) {
+      return user;
+    }
+    return null;
+  }
+  /**
+   * Delete users from Local Storage.
+   */
+  deleteUsers() {
+    localStorage.removeItem("users");
+  }
 }
 
 export { UserManager };
