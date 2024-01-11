@@ -3,6 +3,14 @@ let sellers = [];
 let nameRegex = /^[A-Z][a-zA-Z]{2,12}\s[A-Z][a-zA-Z]{2,12}$/; // Ahmed Mohamed
 let emailRegex = /^\w{4,15}@(yahoo|gmail|outlook).(com|net)$/; // ahmed@gmail.com
 let passRegex = /^[A-Z][a-zA-Z]{5,12}\d{1,}\D{1}[a-zA-Z]{3,12}$/; // Ahmedd99@ahd
+let numberRegex = /^01[0125]\d{8}$/; // 01026340338
+let numberZip = /^\d{5}$/;
+let imagesAllow = /\.(jpg|jpeg|png)$/i; //.jpg / .png
+
+let errorPhone = document.querySelector("#error-phone");
+let errorZip = document.querySelector("#error-Zip");
+let errorImg = document.querySelector("#error-img");
+let errorPdf = document.querySelector("#error-pdf");
 
 if (localStorage.getItem("sellers") != null) {
   sellers = sellers = JSON.parse(localStorage.getItem("sellers"));
@@ -21,6 +29,9 @@ function validateForm() {
   var userPassword = document.getElementById("userPassword").value;
   var confirmPassword = document.getElementById("confirmPassword").value;
   var userMail = document.getElementById("userMail").value;
+  let userPhone = document.querySelector("#userPhone").value;
+  let userZip = document.querySelector("#userZip").value;
+  let userImg = document.querySelector("#inputfile").value;
 
   var elErrorName = document.getElementById("error_name");
   var elErrorPass = document.getElementById("error_pass");
@@ -103,6 +114,47 @@ function validateForm() {
 
   elErrorMail.innerText = "";
   document.getElementById("userMail").style.border = "2px solid green";
+
+  if (userPhone == "" || userPhone == null) {
+    errorPhone.innerHTML = "You can't Add empty number";
+    document.querySelector("#userPhone").style.border = "2px solid red";
+    return false;
+  }
+
+  if (!numberRegex.test(userPhone)) {
+    errorPhone.innerHTML = "Invalid Pattern";
+    document.querySelector("#userPhone").style.border = "2px solid red";
+    return false;
+  }
+  errorPhone.innerHTML = "";
+  document.querySelector("#userPhone").style.border = "2px solid green";
+
+  if (userZip == "" || userZip == null) {
+    errorZip.innerHTML = "You can't Add empty Zip";
+    document.querySelector("#userZip").style.border = "2px solid red";
+    return false;
+  }
+
+  if (!numberZip.test(userZip)) {
+    errorZip.innerHTML = "Invalid Pattern";
+    document.querySelector("#userZip").style.border = "2px solid red";
+    return false;
+  }
+  errorZip.innerHTML = "";
+  document.querySelector("#userZip").style.border = "2px solid green";
+
+  if (userImg == "" || userImg == null) {
+    errorImg.innerHTML = "You must enter the photo of product";
+    document.querySelector("#inputfile").style.border = "2px solid red";
+    return false;
+  }
+  if (!imagesAllow.test(userImg)) {
+    errorImg.innerHTML = "you must enter a valid extension";
+    document.querySelector("#inputfile").style.border = "2px solid red";
+    return false;
+  }
+  errorImg.innerHTML = "";
+  document.querySelector("#inputfile").style.border = "2px solid green";
 
   let seller = {
     UserName: userName,
