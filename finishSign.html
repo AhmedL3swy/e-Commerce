@@ -5,22 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignUp Seller</title>
     <link rel="stylesheet" href="css/signupSeller.css">
+    <link rel="stylesheet" href="css/all.min.css">
 </head>
+
 <body>
     
     <div class="main-wrapper">
         <h1>Enter Your Business Details</h1>
         <p>Tell us about you and your business, so we can verify it.Please provide information per your official documents</p>
         <hr>
-        <form action="">
+        <form action="" id="formValidation">
             <h2>Business Information</h2>
             <div class="UserName">
                 <label for="userName">Business Name: </label>
-                <input type="text" >
+                <input type="text" id="userName">
             </div>
             <div class="userPhone">
                 <label for="userName">Business Phone: </label>
-                <input type="number">
+                <input type="number" min="0" id="userPhone">
             </div>
             <div class="userAddress">
                 <label for="userMail">Business Address: </label>
@@ -30,13 +32,14 @@
                 <label for="userMail">City: </label>
                 <input type="text">
             </div>
-            <div class="userEmail">
-                <label for="userMail">Zip: </label>
-                <input type="number">
+            <div class="userZip">
+                <label for="userZip">Zip: </label>
+                <input type="number" min="0" id="userZip">
             </div>
             <div class="userState">
                 <label for="userState">Select State:</label>
                 <select id="userState" name="userState">
+                    <option value="" selected disabled>Chooser...</option>
                     <option value="AL">Egypt</option>
                     <option value="AX">Alexandria</option>
                     <option value="MN">Mansoura</option>
@@ -56,5 +59,8 @@
         </form>
     </div>
 
+
+<script src="js/finishSignUp.js"></script>
+<script src="js/all.min.js"></script>
 </body>
 </html>
