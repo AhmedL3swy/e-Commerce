@@ -23,6 +23,7 @@
             <div class="userPhone">
                 <label for="userName">Business Phone: </label>
                 <input type="number" min="0" id="userPhone">
+                <span id="error-phone"></span>
             </div>
             <div class="userAddress">
                 <label for="userMail">Business Address: </label>
@@ -35,6 +36,7 @@
             <div class="userZip">
                 <label for="userZip">Zip: </label>
                 <input type="number" min="0" id="userZip">
+                <span id="error-Zip"></span>
             </div>
             <div class="userState">
                 <label for="userState">Select State:</label>
@@ -49,11 +51,13 @@
             </div>
             <div class="filepdf">
                 <label for="inputfile" >Please Upload Image for product: </label>
-                <input type="file"  accept=".images" id="inputfile">
+                <input type="file"  accept=".jpg, .jpeg, .png" id="inputfile">
+                <span id="error-img"></span>
             </div>
             <div class="fileimg">
                 <label for="inputpdf">Please Upload Documentation for product: </label>
                 <input type="file"  accept=".pdf" id="inputpdf">
+                <span id="error-pdf"></span>
             </div>
             <button class="btn">Create Business Account</button>
         </form>
