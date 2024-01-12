@@ -16,7 +16,7 @@ body {
   box-sizing: border-box;
 }
 
-form {
+#registrationForm {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -129,4 +129,10 @@ select {
   border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
+}
+
+.special {
+  color: #45a049;
+  font-size: 20px;
+  text-align: center;
 }

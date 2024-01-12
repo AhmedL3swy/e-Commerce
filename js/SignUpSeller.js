@@ -12,6 +12,16 @@ let errorZip = document.querySelector("#error-Zip");
 let errorImg = document.querySelector("#error-img");
 let errorPdf = document.querySelector("#error-pdf");
 
+let specialDIV = document.querySelector(".special");
+let BTN = document.querySelector(".btn");
+BTN.addEventListener("click",function(){
+  if(validateForm()) {
+    specialDIV.innerText = "You have Signed Up Succssefully";
+    clearVal();
+  }
+});
+
+
 if (localStorage.getItem("sellers") != null) {
   sellers = sellers = JSON.parse(localStorage.getItem("sellers"));
 }
@@ -34,7 +44,6 @@ function validateForm() {
   let userZip = document.querySelector("#userZip").value;
   let userImg = document.querySelector("#inputfile").value;
 
-  // var elErrorName = document.getElementById("error_name");
   var elErrorNameOne = document.getElementById("error_name1");
   var elErrorNameTwo = document.getElementById("error_name2");
   var elErrorPass = document.getElementById("error_pass");
@@ -215,3 +224,25 @@ withIconSecond.addEventListener("click", function () {
 function isUsermailExists(usermail) {
   return sellers.some((seller) => seller.UserMail === usermail);
 }
+
+
+
+function clearVal() {
+  document.getElementById("FirstName").value = "";
+  document.getElementById("LastName").value = "";
+  document.getElementById("userPassword").value = "";
+  document.getElementById("confirmPassword").value = "";
+  document.getElementById("userMail").value = "";
+  document.querySelector("#userPhone").value ="";
+  document.querySelector("#userZip").value = "";
+  document.querySelector("#inputfile").value = "";
+
+  document.getElementById("userMail").style.border = "";
+  document.querySelector("#userPhone").style.border = "";
+  document.getElementById("userPassword").style.border = "";
+  document.getElementById("confirmPassword").style.border = "";
+  document.getElementById("FirstName").style.border = "";
+  document.getElementById("LastName").style.border = "";
+  document.querySelector("#inputfile").style.border = "";
+  document.querySelector("#userZip").style.border = "";
+};//end clear values
