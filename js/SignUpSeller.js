@@ -12,6 +12,17 @@ let errorZip = document.querySelector("#error-Zip");
 let errorImg = document.querySelector("#error-img");
 let errorPdf = document.querySelector("#error-pdf");
 
+class Seller {
+  constructor(firstName, lastName, password, email, phone, zip) {
+    this.UserFirstName = firstName;
+    this.UserLastName = lastName;
+    this.UserPass = password;
+    this.UserMail = email;
+    this.UserPhone = phone;
+    this.UserZip = zip;
+  }
+}
+
 let specialDIV = document.querySelector(".special");
 let BTN = document.querySelector(".btn");
 BTN.addEventListener("click",function(){
@@ -177,13 +188,15 @@ function validateForm() {
   errorImg.innerHTML = "";
   document.querySelector("#inputfile").style.border = "2px solid green";
 
-  let seller = {
-    UserFirstName: userNameFirst,
-    UserLastName: userNameLast,
-    UserPass: userPassword,
-    UserMail: userMail,
-    UserPhone : userPhone,
-  };
+  let seller = new Seller(
+    userNameFirst,
+    userNameLast,
+    userPassword,
+    confirmPassword,
+    userMail,
+    userPhone,
+    userZip
+  );
 
   sellers.push(seller);
   localStorage.setItem("sellers", JSON.stringify(sellers));
