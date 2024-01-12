@@ -192,7 +192,6 @@ function validateForm() {
     userNameFirst,
     userNameLast,
     userPassword,
-    confirmPassword,
     userMail,
     userPhone,
     userZip
