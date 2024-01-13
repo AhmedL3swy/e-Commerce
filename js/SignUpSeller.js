@@ -30,7 +30,7 @@ let BTN = document.querySelector(".btn");
 BTN.addEventListener("click",function(){
   if(validateForm()) {
     specialDIV.innerText = "You have Signed Up Succssefully";
-    signUp();
+    signUp(2);
     clearVal();
   }
 });
@@ -262,12 +262,13 @@ function clearVal() {
   document.querySelector("#userZip").style.border = "";
 };//end clear values
 
-function signUp() {
+function signUp(AccountType) {
   const userManager = new UserManager();
       try {
           var userMail = document.getElementById("userMail").value;
           var userPassword = document.getElementById("userPassword").value;
-          userManager.addUser(userMail, userPassword, 10, 2);
+          var userId= userManager.generateId();
+          userManager.addUser(userMail, userPassword, userId, AccountType);
       } catch (error) {
           console.log(error.message);
       }

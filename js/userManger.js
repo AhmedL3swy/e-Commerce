@@ -24,6 +24,13 @@ class UserManager {
    * @returns {User} The added user.
    * @throws {Error} If the user already exists.
    */
+  generateId() {
+    let id = 0;
+    if (this.users.length > 0) {
+      id = this.users[this.users.length - 1].id + 1;
+    }
+    return id;
+  }
   addUser(email, password, id, accountType) {
     const existingUser = this.users.find((user) => user.email === email);
     if (existingUser) {
