@@ -1,3 +1,5 @@
+import { UserManager } from "./userManger.js";
+
 let sellers = [];
 
 let nameRegex = /^[A-Z][a-zA-Z]{2,12}/; // Ahmed Mohamed
@@ -28,6 +30,7 @@ let BTN = document.querySelector(".btn");
 BTN.addEventListener("click",function(){
   if(validateForm()) {
     specialDIV.innerText = "You have Signed Up Succssefully";
+    signUp();
     clearVal();
   }
 });
@@ -258,3 +261,14 @@ function clearVal() {
   document.querySelector("#inputfile").style.border = "";
   document.querySelector("#userZip").style.border = "";
 };//end clear values
+
+function signUp() {
+  const userManager = new UserManager();
+      try {
+          var userMail = document.getElementById("userMail").value;
+          var userPassword = document.getElementById("userPassword").value;
+          userManager.addUser(userMail, userPassword, 10, 2);
+      } catch (error) {
+          console.log(error.message);
+      }
+}
