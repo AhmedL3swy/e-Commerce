@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
-    <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css">
+    <!-- <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css"> -->
     <link rel="stylesheet" href="../css/Cart.css">
+    <link rel="stylesheet" href="../css/all.min.css">
 </head>
 <body>
-  
+<!--   
    <div class="main-wrapper container">
     <div class="d-flex justify-content-between conent">
         <div class="left ">
@@ -175,13 +176,104 @@
             </div>
         </div>
     </div>
-   </div>
+   </div> -->
 
+   <div class="main-wrapper">
+        <h1>your cart</h1>
+        <div class="container">
+                <div class="left">
+        <div class="product">
+            <img src="../images/electronic-store-product-image-36-400x400.jpg" alt="">
+            <div class="info">
+                <div class="text">
+                    <h2>Gradient Graphic T-shirt</h2>
+                    <p><span>Size: </span>Large</p>
+                    <p><span>Color: </span>White</p>
+                    <h3>$<span class="price">145</span></h3>
+                </div>
+                <div class="buttons">
+                    <i class="fa-solid fa-trash"></i>
+                    <div class="cart-container">
+                        <button class="quantity-btn minus">-</button>
+                        <input type="text" class="quantity-input" value="1">
+                        <button class="quantity-btn plus">+</button>
+                      </div>
+                </div>
+            </div>
+        </div>
+        <div class="product">
+            <img src="../images/electronic-store-product-image-36-400x400.jpg" alt="">
+            <div class="info">
+                <div class="text">
+                    <h2>Gradient Graphic T-shirt</h2>
+                    <p><span>Size: </span>Large</p>
+                    <p><span>Color: </span>White</p>
+                    <h3>$<span class="price">145</span></h3>
+                </div>
+                <div class="buttons">
+                    <i class="fa-solid fa-trash"></i>
+                    <div class="cart-container">
+                        <button class="quantity-btn minus">-</button>
+                        <input type="text" class="quantity-input" value="1">
+                        <button class="quantity-btn plus">+</button>
+                      </div>
+                </div>
+            </div>
+        </div>
+        <div class="product">
+            <img src="../images/electronic-store-product-image-36-400x400.jpg" alt="">
+            <div class="info">
+                <div class="text">
+                    <h2>Gradient Graphic T-shirt</h2>
+                    <p><span>Size: </span>Large</p>
+                    <p><span>Color: </span>White</p>
+                    <h3>$<span class="price">145</span></h3>
+                </div>
+                <div class="buttons">
+                    <i id="trashIcon" class="fa-solid fa-trash"></i>
+                    <div class="cart-container">
+                        <button class="quantity-btn minus">-</button>
+                        <input type="text" class="quantity-input" value="1">
+                        <button class="quantity-btn plus">+</button>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <h2>Order Summary</h2>
+        <div class="price-total">
+            <div class="first">
+                <span>Subtotal</span>
+                <p>$<span>500</span></p>
+            </div>
+            <div class="discount">
+                <span>Discount(-20%)</span>
+                <p>-$<span>100</span></p>
+            </div>
+            <div class="fee">
+                <span>Delivery fee</span>
+                <p>$<span>15</span></p>
+            </div>
+            <div class="total">
+                <span>Total</span>
+                <p>$<span>700</span></p> 
+            </div>
+        </div>
+        <div class="coupon">
+            <input type="text" placeholder="Add promo code">
+            <button class="apply">Apply</button>
+        </div>
+        <button class="check">Check Out <i class="fa-solid fa-arrow-right-long"></i> </button>
+    </div>
+        </div>
+   </div>
 
     
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="../vendor/bootstrap/js/bootstrap.bundle.js"></script>
+<!-- <script src="../vendor/bootstrap/js/bootstrap.bundle.js"></script> -->
 <script src="../js/Cart.js"></script>
+<script src="../js/all.min.js"></script>
 </body>
 </html>
