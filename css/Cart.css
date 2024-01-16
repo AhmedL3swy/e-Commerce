@@ -1,0 +1,136 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.main-wrapper {
+    min-height: 100vh;
+    padding: 10px;
+    width: 100%;
+}
+tbody img {
+    width: 100px;
+    height: 100px;
+}
+
+tbody .special {
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+tbody .special a {
+    text-decoration: none;
+    width: 70%;
+    margin-left: 30px;
+}
+table th {
+    background-color: #F7FBFC !important;
+}
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+}
+.buttons input {
+    border: none;
+    outline: none;
+    padding: 0 10px 0 10px;
+    width: 40px;
+    text-align: center;
+}
+.buttons button {
+    padding: 0 10px 0 10px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all .5s;
+}
+.buttons button:hover {
+    background-color: rgb(195, 142, 142) !important;
+}
+.left {
+     width: 60%; 
+}
+
+
+
+.right {
+    height: 350px;
+    width: 35%;
+    border: 1px solid black;
+    position: sticky;
+    right: 0;
+    top: 0;
+}
+.content {
+    padding: 30px;
+}
+
+.right h2 {
+    padding: 10px;
+    background-color: #F7FBFC !important;
+    color: #27323F;
+}
+
+.right .total p {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
+    padding-top: 15px;
+
+}
+
+.right label a {
+    color: RGB(72, 81, 91);
+    text-decoration: none;
+}
+.right .coupon {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    display: none;
+}
+.right .coupon input {
+    width: 60%;
+    padding: 10px;
+    border-radius: 6px;
+    margin-right: 8px;
+    text-align: left;
+}
+
+.checkout {
+    width: 100%;
+    padding: 10px 16px;
+    border: none;
+    background-color: #27323F;
+    transition: all .5s;
+    font-weight: bold;
+    color: white;
+    margin-top: 15px;
+}
+.checkout:hover {
+    background-color: lightgreen;
+}
+
+@media (max-width : 1220px) {
+    .right {
+        width: 40%;
+    }
+    .left {
+        width: 55%;
+    }
+}
+@media (max-width : 996px) {
+    .conent {
+        flex-direction: column;
+    }
+    .right {
+        width: 100%;
+    }
+    .left {
+        width: 100%;
+    }
+}
