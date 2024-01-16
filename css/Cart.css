@@ -14,7 +14,6 @@ body {
 }
 .container{
     display: flex;
-    align-items: center;
     justify-content: space-between;
 }
 .main-wrapper h1{
@@ -23,7 +22,8 @@ body {
 }
 .left {
     border: 1px solid black;
-    width: 45%;
+    /* width: 45%; */
+    width: 615px;
     border-radius: 10px;
 }
 .left .product {
@@ -92,7 +92,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    
+ 
 }
 .buttons svg {
     margin-bottom: 30px;
@@ -104,6 +104,9 @@ body {
     font-weight: bold;
     line-height: 27px;
     margin-bottom: 8px;
+}
+.info .text{
+    width: 227px;
 }
 .info .text p{
     font-size: 14px;
@@ -122,9 +125,11 @@ body {
 
 .right {
     border: 1px solid black;
-    width: 45%;
+    /* width: 45%; */
+    width: 450px;
     padding: 20px 24px ;
     border-radius: 10px;
+    height: fit-content;
 }
 .right h2{
     font-size: 24;
@@ -213,3 +218,43 @@ button.check {
     cursor: pointer;
 
   }
+
+  @media (max-width : 1214px) {
+    .left {
+        width: 60%;
+    }
+    .right {
+        width: 35%;
+    }
+  }
+
+  @media (max-width : 920px) {
+     .container {
+        flex-direction: column;
+    } 
+    .left {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    .right {
+        width: 100%;
+    } 
+  }
+  @media (max-width : 560px) {
+    .info .text {
+        width: 100%;
+    }
+    .info .text h2{
+        font-size: 16px;
+    }
+    .info .text span,
+    .info .text h3 {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+  } 
+
+
+
+  
