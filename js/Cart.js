@@ -3,6 +3,8 @@ let minus = document.querySelectorAll(".minus");
 let inputValue = document.querySelectorAll(".quantity-input");
 let price = document.querySelectorAll(".price");
 let trashBTN = document.querySelectorAll(".trash");
+let checkOut = document.querySelector(".check");
+
 
 for(let i = 0 ; i < plus.length ; i++) {
     plus[i].addEventListener("click",function(){
@@ -68,3 +70,7 @@ function swalDelete(index) {
         }
       });
 }
+
+checkOut.addEventListener("click" , function() {
+    window.location.href = "../pages/CheckOut.html"
+});//end of checkout page
