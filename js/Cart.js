@@ -2,9 +2,7 @@ let plus = document.querySelectorAll(".plus");
 let minus = document.querySelectorAll(".minus");
 let inputValue = document.querySelectorAll(".quantity-input");
 let price = document.querySelectorAll(".price");
-
-let oldPrice = price.innerHTML;
-
+let trashBTN = document.querySelectorAll(".trash");
 
 for(let i = 0 ; i < plus.length ; i++) {
     plus[i].addEventListener("click",function(){
@@ -12,6 +10,13 @@ for(let i = 0 ; i < plus.length ; i++) {
         price[i].innerHTML = Number(price[i].innerHTML)*inputValue[i].value   ;
     });//end plus function
 }
+
+for(let i = 0 ; i < trashBTN.length ; i++) {
+  trashBTN[i].addEventListener("click",function(e){
+    swalDelete(i);
+  });
+}
+
 
 
 for(let i = 0 ; i < minus.length ; i++) {
@@ -49,6 +54,7 @@ function swalDelete(index) {
             text: "Your file has been deleted.",
             icon: "success"
           });
+          trashBTN[index].parentNode.parentNode.parentNode.remove();
           minus[index].parentNode.parentNode.parentNode.parentNode.remove();
         } else if (
           result.dismiss === Swal.DismissReason.cancel
