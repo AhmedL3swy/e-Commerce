@@ -1,6 +1,7 @@
 # Ignore everything in the assets folder
-assets/*
+*
 # But allow these specific files and folders
+!assets/img
 !assets/vendor/fonts/boxicons.css
 !assets/vendor/fonts/fontawesome.css
 !assets/vendor/fonts/flag-icons.css
@@ -42,3 +43,9 @@ assets/*
 !dump-local-storage.js
 !assets/js/main.js
 !app-user-list.js
+# ...even if they are in subdirectories
+!*/
+# assets/*
+js/signin.js
+js/SignUpSeller.js
+.vscode/settings.json
