@@ -4,11 +4,11 @@
     box-sizing: border-box;
 }
 body {
-    background-color: #eb9478;
     min-height: 100vh;
+    width: 100%;
 }
 .main-wrapper {
-
+    width: 100%;
     display: flex;
     justify-content: center;
     margin: 50px auto;
@@ -16,9 +16,10 @@ body {
 }
 .left {
     margin-right: 20px;
+    width: 60%;
 }
 form {
-    width: 600px;
+    width: 100%;
     margin: auto;
     padding: 50px;
     background-color: lightseagreen;
@@ -83,6 +84,7 @@ input:not(.quantity-input), select {
 }
 .img > img {
     width: 100%;
+    max-width: 100%;
 }
 .required {
     color: red;
@@ -101,6 +103,7 @@ input:not(.quantity-input), select {
 
 
 
+
 .container{
     display: flex;
     justify-content: space-between;
@@ -112,9 +115,8 @@ input:not(.quantity-input), select {
 }
 .one {
     border: 1px solid black;
-    /* width: 45%; */
+    width: 100%;
     border-radius: 10px;
-    background-color: lightslategrey;
 }
 .one .product {
     display: flex;
@@ -150,11 +152,11 @@ input:not(.quantity-input), select {
 .cart-container {
     display: flex;
     align-items: center;
-    
+    margin: auto;
 }
   
 .quantity-input {
-    width: 50px;
+    width: 30px;
     height: 30px; 
     text-align: center;
     font-size: 16px;
@@ -168,6 +170,7 @@ input:not(.quantity-input), select {
     padding: 0 10px; 
     margin: 0;
     cursor: pointer;
+
 }
   
 .quantity-btn:hover {
@@ -182,7 +185,7 @@ input:not(.quantity-input), select {
     display: flex;
     flex-direction: column;
     justify-content: center;
- 
+    width: 30%;
 }
 .trash {
     margin-bottom: 30px;
@@ -200,7 +203,8 @@ input:not(.quantity-input), select {
     margin-bottom: 8px;
 }
 .info .text{
-    width: 227px;
+    /* width: 227px; */
+    width: 70%;
 }
 .info .text p{
     font-size: 14px;
@@ -290,3 +294,72 @@ button.check {
 
   }
 
+
+/* Media Queries for Responsive Design */
+@media (max-width: 1015px) {
+    .info .text h2{
+        font-size: 16px;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .main-wrapper {
+        flex-direction: column;
+    }
+
+    .left {
+        margin-right: 0;
+        width: 100%;
+    }
+
+    form {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .name, .details, .place {
+        flex-direction: column;
+    }
+
+    .firstName, .lastName, .city, .Sreet, .ccv, .exp {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .img {
+        width: 100%;
+    }
+
+    .container {
+        flex-direction: column;
+    }
+
+    .one, .two {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .one .product {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+    }
+
+    .one .product img {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .info .text {
+        width: 100%;
+    }
+
+    .right {
+        width: 100%;
+        margin-top: 20px; 
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+}
