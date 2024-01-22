@@ -101,7 +101,7 @@ function renderAnalyticsComponents() {
 
   $analyticsContainer.empty();
 // Retrieve users data from local storage
-var usersData = getUsersData();
+var usersData = Object.values(getUsersData());
 
 // Calculate values
 const totalUsers = usersData.length;
