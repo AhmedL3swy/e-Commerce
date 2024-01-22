@@ -3,10 +3,34 @@
  */
 
 'use strict';
-  
+
 
 // Datatable (jquery)
 $(function () {
+  var isUniqueEmail = function (mode) {
+    var selectedRow = $('.datatables-users tbody .selected');
+    var rowIndex = dt_user.row(selectedRow).index();
+    var email = mode === 0 ? $("#add-user-email").val() : $("#edit-user-email").val();
+    var isUnique = true;
+    dt_user.rows().every(function (rowIdx, tableLoop, rowLoop) {
+      if (rowIdx != rowIndex) {
+        var rowData = this.data();
+        if (rowData.email == email) {
+          if (mode === 1 && rowData.email == selectedRow.find('td:eq(2)').text()) {
+            isUnique = true;
+            return true;
+          }
+          isUnique = false;
+          return false;
+        }
+      }
+    });
+
+    if (!isUnique) {
+      alert("Email already exists");
+    }
+    return isUnique;
+  }
   let borderColor, bodyBg, headingColor;
 
   if (isDarkStyle) {
@@ -36,7 +60,7 @@ $(function () {
       dropdownParent: $this.parent()
     });
   }
-  var userData = JSON.parse(localStorage.getItem('users')) || [];
+  var userData = Object.values(JSON.parse(localStorage.getItem('users'))) || [];
 
   // Users datatable
   if (dt_user_table.length) {
@@ -44,12 +68,11 @@ $(function () {
       // ajax: assetsPath + 'json/user-list.json', // JSON file to add data
       data: userData, // Use local data instead of Ajax
       columns: [
-        // columns according to JSON
+        
         { data: '' },
+        { data:'id'},
         { data: 'full_name' },
         { data: 'role' },
-        // { data: 'current_plan' },
-        // { data: 'billing' },
         { data: 'status' },
         { data: 'action' }
       ],
@@ -66,8 +89,19 @@ $(function () {
           }
         },
         {
-          // User full name and email
           targets: 1,
+          responsivePriority: 3,
+          render: function (data, type, full, meta) {
+            return '<div class="d-flex flex-column id">' +
+              '<span class="fw-bold text-truncate">' +
+              full['id'] +
+              '</span>' +
+              '</div>';
+          }
+        },
+        {
+          // User full name and email
+          targets: 2,
           responsivePriority: 4,
           render: function (data, type, full, meta) {
             var $name = full['full_name'],
@@ -111,7 +145,7 @@ $(function () {
         },
         {
           // User Role Manipulation
-          targets: 2,
+          targets: 3,
           render: function (data, type, full, meta) {
             var $role = full['role'];
             var roleBadgeObj = {
@@ -136,7 +170,7 @@ $(function () {
         // },
         {
           // User Status Mainuplation
-          targets: 3,
+          targets: 4,
           render: function (data, type, full, meta) {
             var $status = full['status'];
 
@@ -166,7 +200,7 @@ $(function () {
           }
         }
       ],
-      order: [[1, 'desc']],
+      order: [[1, 'asc']],
       dom:
         '<"row mx-2"' +
         '<"col-md-2"<"me-3"l>>' +
@@ -193,7 +227,7 @@ $(function () {
               text: '<i class="bx bx-printer me-2" ></i>Print',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3],
+                columns: [1, 2, 3,4],
                 // prevent avatar to be print
                 format: {
                   body: function (inner, coldex, rowdex) {
@@ -201,7 +235,7 @@ $(function () {
                     var el = $.parseHTML(inner);
                     var result = '';
                     $.each(el, function (index, item) {
-                      if (item.classList !== undefined && item.classList.contains('user-name')) {
+                      if (item.classList !== undefined && item.classList.contains('id')) {
                         result = result + item.lastChild.firstChild.textContent;
                       } else if (item.innerText === undefined) {
                         result = result + item.textContent;
@@ -230,7 +264,7 @@ $(function () {
               text: '<i class="bx bx-file me-2" ></i>Csv',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3],
+                columns: [1, 2, 3,4],
                 // prevent avatar to be display
                 format: {
                   body: function (inner, coldex, rowdex) {
@@ -238,7 +272,7 @@ $(function () {
                     var el = $.parseHTML(inner);
                     var result = '';
                     $.each(el, function (index, item) {
-                      if (item.classList !== undefined && item.classList.contains('user-name')) {
+                      if (item.classList !== undefined && item.classList.contains('id')) {
                         result = result + item.lastChild.firstChild.textContent;
                       } else if (item.innerText === undefined) {
                         result = result + item.textContent;
@@ -254,7 +288,7 @@ $(function () {
               text: '<i class="bx bxs-file-export me-2"></i>Excel',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3],
+                columns: [1, 2, 3,4],
                 // prevent avatar to be display
                 format: {
                   body: function (inner, coldex, rowdex) {
@@ -262,7 +296,7 @@ $(function () {
                     var el = $.parseHTML(inner);
                     var result = '';
                     $.each(el, function (index, item) {
-                      if (item.classList !== undefined && item.classList.contains('user-name')) {
+                      if (item.classList !== undefined && item.classList.contains('id')) {
                         result = result + item.lastChild.firstChild.textContent;
                       } else if (item.innerText === undefined) {
                         result = result + item.textContent;
@@ -278,7 +312,7 @@ $(function () {
               text: '<i class="bx bxs-file-pdf me-2"></i>Pdf',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3],
+                columns: [1, 2, 3,4],
                 // prevent avatar to be display
                 format: {
                   body: function (inner, coldex, rowdex) {
@@ -286,7 +320,7 @@ $(function () {
                     var el = $.parseHTML(inner);
                     var result = '';
                     $.each(el, function (index, item) {
-                      if (item.classList !== undefined && item.classList.contains('user-name')) {
+                      if (item.classList !== undefined && item.classList.contains('id')) {
                         result = result + item.lastChild.firstChild.textContent;
                       } else if (item.innerText === undefined) {
                         result = result + item.textContent;
@@ -302,7 +336,7 @@ $(function () {
               text: '<i class="bx bx-copy me-2" ></i>Copy',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3],
+                columns: [1, 2, 3,4],
                 // prevent avatar to be display
                 format: {
                   body: function (inner, coldex, rowdex) {
@@ -310,7 +344,7 @@ $(function () {
                     var el = $.parseHTML(inner);
                     var result = '';
                     $.each(el, function (index, item) {
-                      if (item.classList !== undefined && item.classList.contains('user-name')) {
+                      if (item.classList !== undefined && item.classList.contains('id')) {
                         result = result + item.lastChild.firstChild.textContent;
                       } else if (item.innerText === undefined) {
                         result = result + item.textContent;
@@ -377,7 +411,7 @@ $(function () {
       initComplete: function () {
         // Adding role filter once table initialized
         this.api()
-          .columns(2)
+          .columns(3)
           .every(function () {
             var column = this;
             var select = $(
@@ -422,7 +456,7 @@ $(function () {
         //   });
         // Adding status filter once table initialized
         this.api()
-          .columns(3)
+          .columns(4)
           .every(function () {
             var column = this;
             var select = $(
@@ -457,15 +491,18 @@ $(function () {
   // Delete Record
   $('.datatables-users tbody').on('click', '.delete-record', function () {
     dt_user.row($(this).parents('tr')).remove().draw();
+    localStorage.setItem('users', JSON.stringify(dt_user.data().toArray()));
   });
+  
   $('.datatables-users tbody').on('click', '.edit-record', function () {
     // Get row data
     var row_data = dt_user.row($(this).parents('tr')).data();
     // Set data to the edit modal inputs
     $("#edit-user-fullname").val(row_data.full_name);
     $("#edit-user-email").val(row_data.email);
-    $("#user-role").val(row_data.role);
-    $("#user-status").val(row_data.status);
+    console.log(row_data.role);
+    $("#edit-user-role").val(row_data.role);
+    $("#edit-user-status").val(row_data.status);
     // Show the edit modal
     $("#offcanvasEditUser").offcanvas('show');
   }
@@ -475,16 +512,20 @@ $(function () {
 
   function addRow(){
     // Add values to the OffCanvas from the table
+    var maxId = 0;
+  dt_user.data().each(function (row) {
+    if (row.id > maxId) {
+      maxId = row.id;
+    }
+  });
 
 
     dt_user.row.add({
+      id:maxId+1,
       full_name: $("#add-user-fullname").val(),
       role:  $("#user-role option:selected").text(),
-      // username: $("#add-user-email").val(), // Use the email as the username for demonstration purposes
       email: $("#add-user-email").val(),
-      // current_plan: $("#user-role option:selected").text(),
-      // billing: "Manual - Cash", // You can customize this as needed
-      status: $('#user-status').val(), // You can customize this as needed
+      status: Number($('#user-status').val()), // You can customize this as needed
       avatar: ""
     }).draw();
   }
@@ -494,14 +535,15 @@ $(function () {
     var selectedRow = $('.datatables-users tbody .selected');
     var rowIndex = dt_user.row(selectedRow).index();
     dt_user.row(rowIndex).data({
+      id:dt_user.row(rowIndex).data().id,
       full_name: $("#edit-user-fullname").val(),
       role:  $("#edit-user-role option:selected").text(),
       // username: $("#add-user-email").val(), // Use the email as the username for demonstration purposes
       email: $("#edit-user-email").val(),
       // current_plan: $("#user-role option:selected").text(),
       // billing: "Manual - Cash", // You can customize this as needed
-      status: $('#edit-user-status').val(), // You can customize this as needed
-      avatar: ""
+      status: Number($('#edit-user-status').val()), // You can customize this as needed
+      avatar: dt_user.row(rowIndex).data().avatar
     }).draw();
     
   }
@@ -600,13 +642,15 @@ $(function () {
     });
   
     // Add Record
-    $('#offcanvasAddUser .btn').on('click', function () {
+    $('#offcanvasAddUser .btn-primary').on('click', function () {
       // Trigger the validation
       fv.validate().then(function (status) {
-        if (status === 'Valid') {
+        if (status === 'Valid' && isUniqueEmail(0)) {
           // If the form is valid, proceed with adding the user
           
           addRow();
+          localStorage.setItem('users', JSON.stringify(dt_user.data().toArray()));
+
           // Reset the form
           addNewUserForm.reset();
   
@@ -624,7 +668,7 @@ $(function () {
       $(this).addClass('selected');
     });
     
-    $('#offcanvasEditUser .btn').on('click', function () {
+    $('#offcanvasEditUser .btn-primary').on('click', function () {
       var selectedRow = $('.datatables-users tbody .selected');
 
       var rowIndex = dt_user.row(selectedRow).index();
@@ -636,10 +680,11 @@ $(function () {
       // dt_user.cell(rowIndex, 3).data(3);
       // Trigger the validation
       fv2.validate().then(function (status) {
-        if (status === 'Valid') {
+        if (status === 'Valid' && isUniqueEmail(1)) {
           // If the form is valid, proceed with adding the user
           // alert("ok2");
           editRow();
+          localStorage.setItem('users', JSON.stringify(dt_user.data().toArray()));
           // Reset the form
           addNewUserForm.reset();
   
@@ -647,8 +692,11 @@ $(function () {
           $("#offcanvasEditUser").offcanvas('hide');
         }
       });
+      
     });
+    
   })();
-  
+
+
 });
 
