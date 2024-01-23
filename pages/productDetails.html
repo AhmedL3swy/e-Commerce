@@ -70,10 +70,8 @@
               </aside>
               <!-- end of product photos -->
               <main class="col-lg-6">
-                <div class="ps-lg-3">
-                  <h1 class="title text-dark header">
-                    One Life Graphic T-shirt 
-                  </h1>
+                <div class="ps-lg-3" id="product-details">
+                  <h1 id="productName" class="title text-dark header">One Life Graphic T-shirt</h1>
                   <div class="d-flex flex-row my-3">
                     <div class="text-warning mb-1 me-2">
                       <i class="fa fa-star"></i>
@@ -85,15 +83,15 @@
                       <i class="fa-solid fa-star-half-stroke"></i>
                       <i class="fa-regular fa-star-half-stroke"></i> -->
                       <span class="ms-1 rate">
-                        4.5/5
+                        5/5
                       </span>
                     </div>
                    
                   </div>
                   <div class="mb-3">
-                    <span class="h5 price">$260</span>
-                    <span class="h5 oldPrice">$300</span>
-                    <span class="h5 discount">-40%</span>
+                    <span id="newPrice" class=" price">$260</span>
+                    <span class=" oldPrice">$300</span>
+                    <span class=" discount">-40%</span>
                   </div>
         
                   <p class="description">
@@ -102,23 +100,22 @@
                   </p>
                 <hr/>
                  <div class="lable">Choose Size</div>
-                 <div class="opContainer">
-                    
-                 <div class="option">Small</div>
-                 <div class="option">Medium</div>
-                 <div class="option">Large</div>
-                 <div class="option">X-Large</div>
+                 <div id="size" class="opContainer">
+                 <button id="small" class="option">Small</button>
+                 <button id="medium" class="option">Medium</button>
+                 <button id="large" class="option">Large</button>
+                 <button id="xlarge" class="option">X-Large</button>
                 </div>
                 <hr/>
                 <div class="qContainer">
-                <div class="quantity">
+                <div class="quantityContainer">
                     <button class="operator minus" onclick="decrease()">-</button>
                     
                      <span id="quantityDisplay" class="numbers">1</span>
 
                     <button  class="operator plus" onclick="increase()" >+</button>
                 </div>
-                <button class="btnCart">Add to Cart</button>
+                <button id="addToCartBtn" class="btnCart" >Add to Cart</button>
             </div>
 
 </div>

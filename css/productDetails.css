@@ -121,6 +121,7 @@ justify-content: center;
 align-items: center;
 gap: 0.75rem;
 border-radius: 3.875rem;
+border-color: #F0F0F0;
 background: #F0F0F0;
 cursor: pointer;
 
@@ -136,7 +137,7 @@ cursor: pointer;
     justify-content: space-between;
     
   }
-  .quantity
+  .quantityContainer
   {
     display: flex;
     
