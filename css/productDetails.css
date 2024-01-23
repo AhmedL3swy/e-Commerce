@@ -126,6 +126,11 @@ background: #F0F0F0;
 cursor: pointer;
 
   }
+  .selected
+  {
+    background-color: black;
+    color: #F0F0F0;
+  }
   .option:hover{
     background-color: black;
     color: white;

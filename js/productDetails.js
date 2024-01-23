@@ -1,9 +1,9 @@
  let currentQuantity=1;//console.log(currentQuantity);
 
  //const productQuantity = document.getElementById('quantityDisplay');
- const innerTxtQuantity = document.getElementById('quantityDisplay').textContent;
+  innerTxtQuantity = document.getElementById('quantityDisplay').textContent;
 
- console.log(innerTxtQuantity);
+ //console.log(innerTxtQuantity);
  currentQuantity = parseInt(innerTxtQuantity, 10);
 
 
@@ -60,23 +60,36 @@ function increase() {
                 const selectedSize = button.textContent;
 
                 // Store the selected size in local storage
-                //localStorage.setItem('selectedSize', selectedSize);
+                localStorage.setItem('selectedSize', selectedSize);
 
                 // // You can also update the UI to highlight the selected size, if needed
-                // updateSelectedSizeUI(selectedSize);
+                 updateSelectedSizeUI(selectedSize);
                 console.log(selectedSize);
             });
         });
+        // Function to update the UI based on the selected size (optional)
+    function updateSelectedSizeUI(selectedSize) {
+      // Remove any existing 'selected' class from all size buttons
+      sizeButtons.forEach(function (button) {
+          button.classList.remove('selected');
+      });
+
+      // Add the 'selected' class to the clicked size button
+      const selectedButton = document.getElementById(`${selectedSize.toLowerCase()}`);
+      if (selectedButton) {
+          selectedButton.classList.add('selected');
+      }
+  }
       
           // Add event listener to the "Add to Cart" button
           addToCartButton.addEventListener('click', function () {
               // Get selected options
               const name =productNameElement.textContent;
-             // const selectedSize = localStorage.getItem('selectedSize') || 'Medium'; 
+              const selectedSize = localStorage.getItem('selectedSize') || 'Medium'; 
              
               // Default to Medium if no size selected
               const price = parseFloat(productPriceElement.textContent);
-             // const quantity = parseInt(quantityInput.textContent);
+             
       
               // Create an object to represent the product
               const product = {
@@ -94,15 +107,15 @@ function increase() {
               let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
       
               // Check if the product is already in the cart
-              const existingProductIndex = cartItems.findIndex(item => item.name === name && item.size === selectedSize);
-      
-              if (existingProductIndex !== -1) {
-                  // If the product is already in the cart, update the quantity
-                  cartItems[existingProductIndex].quantity += quantity;
-              } else {
-                  // If the product is not in the cart, add it
-                  cartItems.push(product);
-              }
+             // const index = cartItems.findIndex(item => item.name === name && item.size === selectedSize);
+              cartItems.push(product)
+              // if (index !== -1) {
+              //     // If the product is already in the cart, update the quantity
+              //     cartItems[index].quantity += quantity;
+              // } else {
+              //     // If the product is not in the cart, add it
+              //     cartItems.push(product);
+              // }
       
               // Save the updated cart items to local storage
               localStorage.setItem('cart', JSON.stringify(cartItems));
