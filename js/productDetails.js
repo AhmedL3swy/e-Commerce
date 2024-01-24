@@ -1,9 +1,8 @@
- let currentQuantity=1;//console.log(currentQuantity);
-
- //const productQuantity = document.getElementById('quantityDisplay');
+ let currentQuantity=1;
+ 
   innerTxtQuantity = document.getElementById('quantityDisplay').textContent;
 
- //console.log(innerTxtQuantity);
+
  currentQuantity = parseInt(innerTxtQuantity, 10);
 
 
@@ -44,15 +43,31 @@ function increase() {
 
        
         document.addEventListener('DOMContentLoaded', function () {
-          // Get elements
-          const addToCartButton = document.getElementById('addToCartBtn');
-       
+           // Get elements
+           const addToCartButton = document.getElementById('addToCartBtn');
+           const productNameElement = document.getElementById('productName');
+           const productPriceElement =document.getElementById('newPrice');
+           
+           const sizeButtons = document.querySelectorAll('.option');
 
-          const productNameElement = document.getElementById('productName');
-          const productPriceElement =document.getElementById('newPrice');
-          // const productSizeElement =document.getElementById('size');
-         // const quantityInput = document.getElementById('quantityDisplay');
-          const sizeButtons = document.querySelectorAll('.option');
+//###############################################################################
+          //href="product-details.html?id=1" for the product in home page
+
+           // Get the product ID from the URL parameters
+
+        //    const urlParams = new URLSearchParams(window.location.search);
+        //    const productId = urlParams.get('id');
+        //    const productData = {
+        //     productId: { name: productName, price:productPrice },
+        //             1:{name: "skirt",price:250 }
+        // };
+          // Display the product details on the page
+
+           // productNameElement.textContent = productData[productId].name;
+          // productPriceElement.textContent=productData[productId].price;  
+                    
+//###############################################################################
+
 
           sizeButtons.forEach(function (button) {
             button.addEventListener('click', function () {
@@ -62,12 +77,12 @@ function increase() {
                 // Store the selected size in local storage
                 localStorage.setItem('selectedSize', selectedSize);
 
-                // // You can also update the UI to highlight the selected size, if needed
+                
                  updateSelectedSizeUI(selectedSize);
                 console.log(selectedSize);
             });
         });
-        // Function to update the UI based on the selected size (optional)
+        // Function to update the UI based on the selected size 
     function updateSelectedSizeUI(selectedSize) {
       // Remove any existing 'selected' class from all size buttons
       sizeButtons.forEach(function (button) {
@@ -85,9 +100,8 @@ function increase() {
           addToCartButton.addEventListener('click', function () {
               // Get selected options
               const name =productNameElement.textContent;
+               // Default to Medium if no size selected
               const selectedSize = localStorage.getItem('selectedSize') || 'Medium'; 
-             
-              // Default to Medium if no size selected
               const price = parseFloat(productPriceElement.textContent);
              
       
