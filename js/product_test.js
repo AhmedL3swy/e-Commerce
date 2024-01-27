@@ -3,6 +3,7 @@ import  Products  from './database/Products.js';
 
 // Initializing the Products module
 const products = new Products();
+console.log(products);
 
 // ###### GETTING DATA ##########
 // Getting the products object
