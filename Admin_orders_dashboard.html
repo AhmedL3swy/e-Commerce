@@ -212,23 +212,26 @@
         <div class="card-header border-bottom">
           <h5 class="card-title">Search Filter</h5>
           <div class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0">
-            <div class="col-md-6 user_role"></div>
+            <div class="col-md-6 order_status"></div>
             <!-- <div class="col-md-4 user_plan"></div> -->
-            <div class="col-md-6 user_status"></div>
+            <div class="col-md-6 "></div>
           </div>
         </div>
         <div class="card-datatable table-responsive">
           <table class="datatables-users table border-top">
             <thead>
-              <tr>
-                <th></th>
-                <th>ID</th>
-                <th>Full Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
+            <!-- #TABLE -->
+            <tr>
+              <th></th>
+              <th>OrderID</th>
+              <th>OrderDetails</th>
+              <th>UserID</th>
+              <th>SellerID</th>
+              <th>OrderDate</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
             </thead>
             <tbody></tbody>
             </tbody>
@@ -372,8 +375,8 @@
   <!-- Main JS -->
   <script src="assets/js/main.js"></script>
   <!-- Page JS -->
-  <script src="js/users-analytics.js"></script>
-  <script src="js/users-dashboard.js" type="module"></script>
+  <!-- <script src="js/users-analytics.js"></script> -->
+  <script src="js/admin-orders-dashboard.js" type="module"></script>
 
 </body>
 
