@@ -13,14 +13,19 @@ fetchAndStoreJson(userjsonFileURL,'users');
 // Datatable (jquery)
 $(function () {
   var isUniqueEmail = function () {
+  var isUniqueEmail = function () {
     var selectedRow = $('.datatables-users tbody .selected');
     var rowIndex = dt_user.row(selectedRow).index();
     var email = $("#edit-user-email").val();
+    var email = $("#edit-user-email").val();
     var isUnique = true;
+  
   
     dt_user.rows().every(function (rowIdx, tableLoop, rowLoop) {
       if (rowIdx !== rowIndex) {
+      if (rowIdx !== rowIndex) {
         var rowData = this.data();
+        if (rowData.email === email) {
         if (rowData.email === email) {
           isUnique = false;
           return false;
@@ -28,10 +33,13 @@ $(function () {
       }
     });
   
+  
     if (!isUnique) {
       alert("Email already exists");
     }
     return isUnique;
+  };
+  
   };
   
   let borderColor, bodyBg, headingColor;
@@ -497,6 +505,7 @@ $(function () {
 
 
   //#Add Row
+  //#Add Row
   function addRow(){
     // Add values to the OffCanvas from the table
     var maxId = 0;
@@ -512,7 +521,7 @@ $(function () {
       full_name: $("#add-user-fullname").val(),
       role:  $("#user-role option:selected").text(),
       email: $("#add-user-email").val(),
-      password: $("#add -user-password").val(),
+      password: $("#add-user-password").val(),
       status: Number($('#user-status').val()) // You can customize this as needed
     }).draw();
   }
@@ -607,6 +616,41 @@ $(function () {
         },
       },
 
+            },
+            callback: {
+              callback: function (input) {
+                // console.log(input.value);
+                var allEmails =dt_user.data().toArray().map(user => user.email);
+                const emailExists = allEmails.some(email => email.toLowerCase() === input.value.toLowerCase());
+                if (emailExists) {
+                  return {
+                    valid: false,
+                    message: 'The email already exists'
+                  };
+                }
+                else {
+                  return {
+                    valid: true,
+                    message: 'The email is valid'
+                  };
+                }
+              }
+            }
+          }
+        },
+        userPassword: {
+          validators: {
+            notEmpty: {
+              message: 'Please enter your password'
+            },
+          regexp: {
+          regexp: /^.{8,}$/,
+          message: 'Password must be at least 8 characters long'
+        }
+          }
+        },
+      },
+
       plugins: {
         trigger: new FormValidation.plugins.Trigger(),
         bootstrap5: new FormValidation.plugins.Bootstrap5({
@@ -655,6 +699,20 @@ $(function () {
 
           }
         },
+        },
+        userPassword: {
+          validators: {
+            notEmpty: {
+              message: 'Please enter your password'
+            },
+          regexp: {
+          regexp: /^.{8,}$/,
+          message: 'Password must be at least 8 characters long'
+        }
+
+
+          }
+        },
       },
       plugins: {
         trigger: new FormValidation.plugins.Trigger(),
@@ -677,6 +735,7 @@ $(function () {
     $('#offcanvasAddUser .btn-primary').on('click', function () {
       // Trigger the validation
       fv.validate().then(function (status) {
+        if (status === 'Valid') {
         if (status === 'Valid') {
           // If the form is valid, proceed with adding the user
           
@@ -712,6 +771,7 @@ $(function () {
       // dt_user.cell(rowIndex, 3).data(3);
       // Trigger the validation
       fv2.validate().then(function (status) {
+        if ((status === 'Valid' )  && isUniqueEmail()) {
         if ((status === 'Valid' )  && isUniqueEmail()) {
           // If the form is valid, proceed with adding the user
           // alert("ok2");
