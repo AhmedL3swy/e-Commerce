@@ -1,3 +1,11 @@
+// import Products from './database/Products.js';
+
+// // Initializing the Products module
+// const products = new Products();
+// console.log(products);
+
+
+
 window.addEventListener('load', function() {
   // let signupDismiss = document.getElementById("signup-dismiss");
   let signupDismiss = document.getElementById("dismisser");
@@ -11,7 +19,6 @@ window.addEventListener('load', function() {
 
 
 });
-
 
 
 let plus = document.querySelectorAll(".plus");
@@ -47,7 +54,7 @@ function displayCart() {
 
     hamada = `
     <div class="product">
-    <img src="../images/electronic-store-product-image-36-400x400.jpg" alt="">
+    <img src="${cart[i].img}" alt="">
     <div class="info">
         <div class="text">
             <h2>${cart[i].name}</h2>
@@ -71,16 +78,24 @@ function displayCart() {
 }
 
 
-// button Add
 function Adding(index, button) {
   let inputValue = document.querySelectorAll(".quantity-input");
   let price = document.querySelectorAll(".price");
+
+  // Check if adding 1 to the current quantity will exceed the stock
+  if (cart[index].quantity + 1 > cart[index].stock) {
+    alert("Sorry, the selected quantity exceeds the available stock.");
+    console.log("Stock Exceeded!");
+    return; // Exit the function if the stock is exceeded
+  }
+
   inputValue[index].value++;
   price[index].innerHTML = Number(inputValue[index].value) * Number(cart[index].price);
   updateCartQuantity(index, inputValue[index].value);
   subTotalPrice += Number(cart[index].price);
   updateTotalPrices();
   localStorage.setItem("cart", JSON.stringify(cart));
+  console.log("Adding successful!");
 }
 
 
@@ -140,7 +155,7 @@ checkOut.addEventListener("click" , function() {
 
 
 function updateTotalPrices() {
-  const Discount = (20 / 100) * subTotalPrice;
+  const Discount = parseInt((20 / 100) * subTotalPrice);
   const Total = subTotalPrice - Discount - Number(DeliveryFee.innerHTML);
   subTotal.innerHTML = subTotalPrice;
   DiscountTotal.innerHTML = Discount;
@@ -154,104 +169,4 @@ function updateCartQuantity(index, newQuantity ) {
 
 
 displayCart();
-
-
-/*
-let plus = document.querySelectorAll(".plus");
-let minus = document.querySelectorAll(".minus");
-let inputValue = document.querySelectorAll(".quantity-input");
-let price = document.querySelectorAll(".price");
-let trashBTN = document.querySelectorAll(".trash");
-let checkOut = document.querySelector(".check");
-let cart = [];
-
-let subTotal = document.querySelector(".subtotal");
-let DiscountTotal = document.querySelector(".Discount");
-let TotalPrice = document.querySelector(".Total");
-let DeliveryFee = document.querySelector(".fees");
-let subTotalPrice = 0;
-
-if (localStorage.getItem("cart") != null) {
-  cart = JSON.parse(localStorage.getItem("cart"));
-}
-
-function displayCart() {
-  document.querySelector(".left").innerHTML = "";
-  let hamada = ``;
-
-  for (let i = 0; i < cart.length; i++) {
-    const itemTotal = cart[i].price * cart[i].quantity;
-    subTotalPrice += itemTotal;
-
-    hamada = `
-      <div class="product">
-        <img src="../images/electronic-store-product-image-36-400x400.jpg" alt="">
-        <div class="info">
-          <div class="text">
-            <h2>${cart[i].name}</h2>
-            <p><span>Size: </span>${cart[i].size}</p>
-            <p><span>Color: </span>White</p>
-            <h3>$<span class="price">${cart[i].price * cart[i].quantity}</span></h3>
-          </div>
-          <div class="buttons">
-            <button class="trash" onclick="deleteProduct(${i})"><i class="fa-solid fa-trash"></i></button>
-            <div class="cart-container">
-              <button class="quantity-btn minus" onclick="decreaseQuantity(${i})">-</button>
-              <input readonly type="text" class="quantity-input" value="${cart[i].quantity}">
-              <button class="quantity-btn plus" onclick="increaseQuantity(${i})">+</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-    document.querySelector(".left").innerHTML += hamada;
-  }
-
-  updateTotalPrices();
-}
-
-function increaseQuantity(index) {
-  cart[index].quantity++;
-  updateCart(index);
-}
-
-function decreaseQuantity(index) {
-  if (cart[index].quantity > 1) {
-    cart[index].quantity--;
-    updateCart(index);
-  }
-}
-
-function deleteProduct(index) {
-  const productName = cart[index].name;
-  const msg = confirm(`Do you want to delete ${productName}?`);
-
-  if (msg) {
-    subTotalPrice -= cart[index].price * cart[index].quantity;
-    cart.splice(index, 1);
-    updateCart();
-  }
-}
-
-function updateCart(index) {
-  localStorage.setItem("cart", JSON.stringify(cart));
-  displayCart();
-}
-
-checkOut.addEventListener("click", function () {
-  window.location.href = "../pages/CheckOut.html";
-  localStorage.setItem("myProducts", JSON.stringify(cart));
-}); // end of checkout page
-
-function updateTotalPrices() {
-  const Discount = (20 / 100) * subTotalPrice;
-  const Total = subTotalPrice - Discount - Number(DeliveryFee.innerHTML);
-  subTotal.innerHTML = subTotalPrice;
-  DiscountTotal.innerHTML = Discount;
-  TotalPrice.innerHTML = Total;
-}
-
-displayCart();
-*/
-
 

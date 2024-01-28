@@ -48,7 +48,7 @@ function displayCart() {
         subTotalPrice += itemTotal;
         hamada = `
         <div class="product">
-        <img src="images/electronic-store-product-image-36-400x400.jpg" alt="">
+        <img src="${myProduct[i].img}" alt="">
         <div class="info">
             <div class="text">
                 <h2>${myProduct[i].name}</h2>
@@ -325,7 +325,7 @@ function Adding(index, button) {
   
 
   function updateTotalPrices() {
-    const Discount = (20 / 100) * subTotalPrice;
+    const Discount = parseInt((20 / 100) * subTotalPrice);
     const Total = subTotalPrice - Discount - Number(DeliveryFee.innerHTML);
     subTotal.innerHTML = subTotalPrice;
     DiscountTotal.innerHTML = Discount;

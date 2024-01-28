@@ -1,9 +1,87 @@
- let currentQuantity=1;
+
+import Products from './database/Products.js';
+
+// Initializing the Products module
+const products = new Products();
+console.log(products);
+
+
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get('id');
+//const id = 'pid3'
+
+var product =products.getProductById(id);
+console.log(product);
+const imgs = product.images.split(',');
+console.log(imgs[0]);
+let currentQuantity=1;
+
+// var bodyContent = 
+
+const imgDiv=document.getElementById('imgsContainer');
+let imgBlock='';
+imgBlock+=`<div class="d-flex align-items-center mb-3 side ">
+<div class="smallImg">
+<a data-fslightbox="mygalley" class=" mx-1 rounded-2" target="_blank" data-type="image" href="" class="item-thumb">
+  <img id="img1" class="rounded-2 img" src="${imgs[1]}" />
+</a>
+<a data-fslightbox="mygalley" class=" mx-1 rounded-2" target="_blank" data-type="image" href="" class="item-thumb">
+  <img id="img2" class="rounded-2 img" src="${imgs[2]}" />
+</a>
+<a data-fslightbox="mygalley" class=" mx-1 rounded-2" target="_blank" data-type="image" href="" class="item-thumb">
+  <img id="img3" class="rounded-2 img" src="${imgs[3]}" />
+</a>
+</div>
+</div>
+      <div class="">
+        <div class=" rounded-4 mb-3 d-flex justify-content-center">
+            <a data-fslightbox="mygalley" class="rounded-4" target="_blank" data-type="image" href="">
+              <img id="img0" style="max-width: 100%; max-height: 100vh; margin: auto;"
+               class="rounded-4 fit" src="${imgs[0]}" />
+            </a>
+          </div>
+      </div>`
+imgDiv.innerHTML=imgBlock;
+const productDiv = document.getElementById('product-details');
+
+const productBlock =` <h1 id="productName" class="title text-dark header">${product.productName}</h1>
+<div class="d-flex flex-row my-3">
+  <div class="text-warning mb-1 me-2">
+    <i class="fa fa-star"></i>
+    <i class="fa fa-star"></i>
+    <i class="fa fa-star"></i>
+    <i class="fa fa-star"></i>
+    
+    <!-- <i class="fas fa-star-half-alt"></i>
+    <i class="fa-solid fa-star-half-stroke"></i>
+    <i class="fa-regular fa-star-half-stroke"></i> -->
+    <span class="ms-1 rate">
+    ${product.rating}
+    </span>
+  </div>
  
-  innerTxtQuantity = document.getElementById('quantityDisplay').textContent;
+</div>
+<div class="mb-3">
+  <span class=" price">$</span>
+  <span id="newPrice" class=" price">${parseInt(product.price)}</span>
+  <span class=" oldPrice">$300</span>
+  <span class=" discount" >
+  <span >-</span>
+  <span id="discountVal" >${product.discount}</span>
+  <span >%</span>
+</span>
+</div>
+
+<p id="descriptionContent" class="description">
+${product.details}
+</p>
+<hr/>`
+productDiv.innerHTML=productBlock;
 
 
- currentQuantity = parseInt(innerTxtQuantity, 10);
+  
+   const innerTxtQuantity = document.getElementById('quantityDisplay').textContent;
+   currentQuantity = parseInt(innerTxtQuantity, 10);
 
 
 // Function to decrease quantity
@@ -43,31 +121,11 @@ function increase() {
 
        
         document.addEventListener('DOMContentLoaded', function () {
+          console.log(product.price);
            // Get elements
            const addToCartButton = document.getElementById('addToCartBtn');
-           const productNameElement = document.getElementById('productName');
-           const productPriceElement =document.getElementById('newPrice');
-           
            const sizeButtons = document.querySelectorAll('.option');
-
-//###############################################################################
-          //href="product-details.html?id=1" for the product in home page
-
-           // Get the product ID from the URL parameters
-
-        //    const urlParams = new URLSearchParams(window.location.search);
-        //    const productId = urlParams.get('id');
-        //    const productData = {
-        //     productId: { name: productName, price:productPrice },
-        //             1:{name: "skirt",price:250 }
-        // };
-          // Display the product details on the page
-
-           // productNameElement.textContent = productData[productId].name;
-          // productPriceElement.textContent=productData[productId].price;  
-                    
-//###############################################################################
-
+        
 
           sizeButtons.forEach(function (button) {
             button.addEventListener('click', function () {
@@ -99,43 +157,27 @@ function increase() {
           // Add event listener to the "Add to Cart" button
           addToCartButton.addEventListener('click', function () {
               // Get selected options
-              const name =productNameElement.textContent;
                // Default to Medium if no size selected
               const selectedSize = localStorage.getItem('selectedSize') || 'Medium'; 
-              const price = parseFloat(productPriceElement.textContent);
-             
+          
       
               // Create an object to represent the product
-              const product = {
-                  id : 1,
-                  name: name,
+              const choosenProduct = {
+                  id:id,
+                  img : product.thumbnail,
+                  name: product.productName,
                   size: selectedSize,
-                  price: price,
+                  price: parseInt(product.price),
                   quantity: currentQuantity
               };
+      
               // Get existing cart items from local storage
-              //the line is checking if there are existing cart items in the local storage.
-              // If there are, it parses the JSON and sets cartItems to the parsed array.
-              // If there are no cart items or if there's an issue with the stored data, it sets cartItems to an empty array.
-              // This way, you start with a clean slate or with the existing cart items from local storage.
               let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-      
-              // Check if the product is already in the cart
-             // const index = cartItems.findIndex(item => item.name === name && item.size === selectedSize);
-              cartItems.push(product)
-              // if (index !== -1) {
-              //     // If the product is already in the cart, update the quantity
-              //     cartItems[index].quantity += quantity;
-              // } else {
-              //     // If the product is not in the cart, add it
-              //     cartItems.push(product);
-              // }
-      
-              // Save the updated cart items to local storage
+              cartItems.push(choosenProduct)
+             // Save the updated cart items to local storage
               localStorage.setItem('cart', JSON.stringify(cartItems));
       
               // Alert the user that the product has been added to the cart (you can replace this with a better UI)
               alert('Product added to cart!');
           });
       });
-

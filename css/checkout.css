@@ -22,7 +22,7 @@ body {
     width: 100%;
     margin: auto;
     padding: 50px;
-    background-color: #010100;
+    background-color: lightseagreen;
 
 }
 .name , .details ,.place {
@@ -32,7 +32,7 @@ body {
 }
 
 #checkOutForm h2 {
-    color: white;
+    color: #333;
     font-size: 24px;
     margin-bottom: 20px;
 }
@@ -51,7 +51,7 @@ body {
 label {
     display: block;
     margin-bottom: 8px;
-    color: white;
+    color: #555;
 }
 
 .left input:not(.quantity-input), select {
