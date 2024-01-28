@@ -154,30 +154,22 @@ function increase() {
       }
   }
       
-          // Add event listener to the "Add to Cart" button
-          addToCartButton.addEventListener('click', function () {
-              // Get selected options
-               // Default to Medium if no size selected
-              const selectedSize = localStorage.getItem('selectedSize') || 'Medium'; 
-          
-      
-              // Create an object to represent the product
-              const choosenProduct = {
-                  id:id,
-                  img : product.thumbnail,
-                  name: product.productName,
-                  size: selectedSize,
-                  price: parseInt(product.price),
-                  quantity: currentQuantity
-              };
-      
-              // Get existing cart items from local storage
-              let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-              cartItems.push(choosenProduct)
-             // Save the updated cart items to local storage
-              localStorage.setItem('cart', JSON.stringify(cartItems));
-      
-              // Alert the user that the product has been added to the cart (you can replace this with a better UI)
-              alert('Product added to cart!');
-          });
+  addToCartButton.addEventListener('click', function () {
+    const selectedSize = localStorage.getItem('selectedSize') || 'Medium';
+
+    const choosenProduct = {
+        id: id,
+        product: product,
+        size: selectedSize,
+        quantity: currentQuantity,
+    };
+
+    let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    cartItems.push(choosenProduct);
+    localStorage.setItem('cart', JSON.stringify(cartItems));
+
+    alert('Product added to cart!');
+});
+
+        
       });

@@ -1,11 +1,3 @@
-// import Products from './database/Products.js';
-
-// // Initializing the Products module
-// const products = new Products();
-// console.log(products);
-
-
-
 window.addEventListener('load', function() {
   // let signupDismiss = document.getElementById("signup-dismiss");
   let signupDismiss = document.getElementById("dismisser");
@@ -19,7 +11,6 @@ window.addEventListener('load', function() {
 
 
 });
-
 
 let plus = document.querySelectorAll(".plus");
 let minus = document.querySelectorAll(".minus");
@@ -49,18 +40,18 @@ function displayCart() {
   let hamada = ``;
   for (let i=0 ;i<cart.length;i++){ 
 
-    const itemTotal = cart[i].price * cart[i].quantity;
+    const itemTotal = cart[i].product.price * cart[i].quantity;
     subTotalPrice += itemTotal;
 
     hamada = `
     <div class="product">
-    <img src="${cart[i].img}" alt="">
+    <img src="${cart[i].product.thumbnail}" alt="">
     <div class="info">
         <div class="text">
-            <h2>${cart[i].name}</h2>
-            <p><span>Size: </span>${cart[i].size}</p>
+            <h2>${cart[i].product.productName}</h2>
+            <p><span>Size: </span>${cart[i].product.size}</p>
             <p><span>Color: </span>White</p>
-            <h3>$<span class="price">${cart[i].price * cart[i].quantity}</span></h3>
+            <h3>$<span class="price">${(cart[i].product.price * cart[i].quantity).toFixed(2)}</span></h3>
         </div>
         <div class="buttons">
             <button class="trash" onclick = "Deletion(${i},this)"><i class="fa-solid fa-trash"></i></button>
@@ -82,31 +73,30 @@ function Adding(index, button) {
   let inputValue = document.querySelectorAll(".quantity-input");
   let price = document.querySelectorAll(".price");
 
-  // Check if adding 1 to the current quantity will exceed the stock
-  if (cart[index].quantity + 1 > cart[index].stock) {
+  console.log(cart[index].product.stock);
+
+  if (Number(inputValue[index].value) + 1 > cart[index].product.stock) {
     alert("Sorry, the selected quantity exceeds the available stock.");
     console.log("Stock Exceeded!");
     return; // Exit the function if the stock is exceeded
   }
 
   inputValue[index].value++;
-  price[index].innerHTML = Number(inputValue[index].value) * Number(cart[index].price);
+  price[index].innerHTML = (Number(inputValue[index].value) * Number(cart[index].product.price)).toFixed(2);
   updateCartQuantity(index, inputValue[index].value);
-  subTotalPrice += Number(cart[index].price);
+  subTotalPrice += Number(cart[index].product.price);
   updateTotalPrices();
   localStorage.setItem("cart", JSON.stringify(cart));
   console.log("Adding successful!");
 }
 
-
 // button Trash to delete
 function Deletion(index, button) {
   let trashBTN = document.querySelectorAll(".trash");
-  let productName = cart[index].name;
+  let productName = cart[index].product.productName;
   let msg = confirm(`Do you want to delete ${productName}?`);
   if (msg) {
-    //trashBTN[index].parentNode.parentNode.parentNode.remove();
-    subTotalPrice -= Number(cart[index].price);
+    subTotalPrice -= Number(cart[index].product.price * cart[index].quantity);
     cart.splice(index, 1);
     displayCart();
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -118,34 +108,32 @@ function Delete(index, button) {
   let inputValue = document.querySelectorAll(".quantity-input");
   let price = document.querySelectorAll(".price");
 
-  let productName = cart[index].name;
+  let productName = cart[index].product.productName;
   inputValue[index].value--;
-  price[index].innerHTML = Number(inputValue[index].value) * Number(cart[index].price);
-  
+  price[index].innerHTML = Number(inputValue[index].value) * Number(cart[index].product.price);
+
   updateCartQuantity(index, inputValue[index].value);
-  
-  subTotalPrice -= Number(cart[index].price);
+
+  subTotalPrice -= Number(cart[index].product.price);
   updateTotalPrices();
-  
+
   localStorage.setItem("cart", JSON.stringify(cart));
-  
-  
+
   if (inputValue[index].value == 0) {
     let msg = confirm(`Do you want to delete ${productName}?`);
     if (msg) {
-      //minus[index].parentNode.parentNode.parentNode.parentNode.remove();
-      subTotalPrice -= Number(cart[index].price);
+      subTotalPrice -= Number(cart[index].product.price * cart[index].quantity);
       cart.splice(index, 1);
       displayCart();
       localStorage.setItem("cart", JSON.stringify(cart));
-    }
-    else {
+    } else {
       updateCartQuantity(index, 1);
-      price[index].innerHTML = Number(cart[index].price);
+      price[index].innerHTML = Number(cart[index].product.price);
       inputValue[index].value = 1;
     }
   }
 }
+
 
 
 checkOut.addEventListener("click" , function() {
@@ -155,9 +143,9 @@ checkOut.addEventListener("click" , function() {
 
 
 function updateTotalPrices() {
-  const Discount = parseInt((20 / 100) * subTotalPrice);
-  const Total = subTotalPrice - Discount - Number(DeliveryFee.innerHTML);
-  subTotal.innerHTML = subTotalPrice;
+  const Discount = ((20 / 100) * subTotalPrice).toFixed(2);
+  const Total = (subTotalPrice - Discount - Number(DeliveryFee.innerHTML)).toFixed(2);
+  subTotal.innerHTML = subTotalPrice.toFixed(2);
   DiscountTotal.innerHTML = Discount;
   TotalPrice.innerHTML = Total;
 }

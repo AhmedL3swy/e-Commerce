@@ -1,4 +1,6 @@
 
+
+
 window.addEventListener('load', function() {
     // let signupDismiss = document.getElementById("signup-dismiss");
     let signupDismiss = document.getElementById("dismisser");
@@ -37,33 +39,33 @@ if(localStorage.getItem("purchase")!=null) {
     console.log(arr);
 }
 
-
-
 function displayCart() {
+    // this should not adding the new rows
     document.querySelector(".one").innerHTML = ``;
     let hamada = ``;
-    for (let i = 0; i < myProduct.length; i++) {
-
-        const itemTotal = myProduct[i].price * myProduct[i].quantity;
-        subTotalPrice += itemTotal;
-        hamada = `
-        <div class="product">
-        <img src="${myProduct[i].img}" alt="">
-        <div class="info">
-            <div class="text">
-                <h2>${myProduct[i].name}</h2>
-                <p><span>Size: </span>${myProduct[i].size}</p>
-                <p><span>Color: </span>White</p>
-                <h3>$<span class="price">${myProduct[i].price * myProduct[i].quantity}</span></h3>
-            </div>
-            <input readonly type="text" class="quantity-input" value="${myProduct[i].quantity}">
-
-        </div>
-        `;
-        document.querySelector(".one").innerHTML += hamada;
+    for (let i=0 ;i<myProduct.length;i++){ 
+  
+      const itemTotal = myProduct[i].product.price * myProduct[i].quantity;
+      subTotalPrice += itemTotal;
+  
+      hamada = `
+      <div class="product">
+      <img src="${myProduct[i].product.thumbnail}" alt="">
+      <div class="info">
+          <div class="text">
+              <h2>${myProduct[i].product.productName}</h2>
+              <p><span>Size: </span>${myProduct[i].product.size}</p>
+              <p><span>Color: </span>White</p>
+              <h3>$<span class="price">${(myProduct[i].product.price * myProduct[i].quantity).toFixed(2)}</span></h3>
+          </div>
+          <input readonly type="text" class="quantity-input" value="${myProduct[i].quantity}">
+      </div>
+      `;
+      document.querySelector(".one").innerHTML += hamada;
     }
     updateTotalPrices();
-}
+  }
+
 
 
 
@@ -325,9 +327,9 @@ function Adding(index, button) {
   
 
   function updateTotalPrices() {
-    const Discount = parseInt((20 / 100) * subTotalPrice);
-    const Total = subTotalPrice - Discount - Number(DeliveryFee.innerHTML);
-    subTotal.innerHTML = subTotalPrice;
+    const Discount = ((20 / 100) * subTotalPrice).toFixed(2);
+    const Total = (subTotalPrice - Discount - Number(DeliveryFee.innerHTML)).toFixed(2);
+    subTotal.innerHTML = subTotalPrice.toFixed(2);
     DiscountTotal.innerHTML = Discount;
     TotalPrice.innerHTML = Total;
   }
