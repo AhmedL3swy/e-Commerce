@@ -18,7 +18,8 @@
       <div class="FirstSection w-100 py-4">
         <div class="container h-100">
           <div class="row h-100 align-items-center">
-            <div class="col-xl-5">
+            <!-- div for photo and text -->
+            <div class="col-12 col-lg-12 col-xl-6">
               <h1 class="fw-bold">FIND CLOTHES THAT MATCHES YOUR STYLE!</h1>
               <p class="text-secondary">
                 Browse through our diverse range of meticulously crafted
@@ -49,13 +50,12 @@
                 </div>
               </div>
             </div>
-            <div class="col-xl-7 hero-main-img h-100"></div>
+            <div class="col-12 col-lg-12 col-xl-6 BoyGirl-img h-100"></div>
           </div>
         </div>
       </div>
 
       <!-- Ennndd of first section -->
-
       <!-- second section agaaainnnnn -->
       <div class="brand-menu py-3" id="seconddiv">
         <div class="container align-content-around text-center">
@@ -63,27 +63,27 @@
             class="row align-items-center fs-2 justify-content-center bg-black"
           >
             <div class="text-center col-4 col-md-3 col-xl-2">
-              <a class="text-decoration-none" href="#brand"
+              <a class="text-decoration-none"
                 ><img src="./images/versace.png"
               /></a>
             </div>
             <div class="text-center col-4 col-md-3 col-xl-2">
-              <a class="text-decoration-none" href="#brand"
+              <a class="text-decoration-none"
                 ><img src="./images/zara.png"
               /></a>
             </div>
             <div class="text-center col-4 col-md-3 col-xl-2">
-              <a class="text-decoration-none" href="#brand"
+              <a class="text-decoration-none"
                 ><img src="./images/gucci.png"
               /></a>
             </div>
             <div class="text-center col-6 col-md-6 col-xl-2">
-              <a class="text-decoration-none" href="#brand"
+              <a class="text-decoration-none"
                 ><img src="./images/prada.png"
               /></a>
             </div>
             <div class="text-center col-6 col-md-6 col-xl-2">
-              <a class="text-decoration-none" href="#brand"
+              <a class="text-decoration-none"
                 ><img src="./images/calvin.png"
               /></a>
             </div>
@@ -94,12 +94,14 @@
 
       <!-- Third Section -->
       <div class="container">
-        <div id="thirdtxt" class="container text-center col-12">
+        <div id="thirdtxt" class="container text-center col-12 mt-3">
           NEW ARRIVALS
         </div>
-        <div class="d-flex flex-column flex-md-row justify-content-evenly">
+        <div
+          class="d-flex flex-column flex-md-row justify-content-evenly gap-2"
+        >
           <div
-            class="col-12 col-sm-6 col-lg-2 d-flex flex-column align-items-center gap-1"
+            class="col-12 col-md-6 col-lg-2 d-flex flex-column align-items-center gap-1"
           >
             <img src="./images/image 7.jpg" />
             <h3>T-shirt with tape details</h3>
@@ -129,7 +131,7 @@
             class="col-12 col-md-6 col-lg-2 d-flex flex-column align-items-center gap-1"
           >
             <img src="./images/image 10.png" />
-            <h3>Sleeve Stripped T-shirt</h3>
+            <h3>Stripped T-shirt</h3>
             <div class="star-rating" data-rating="4"></div>
             <div class="priceshape">$130</div>
           </div>
@@ -171,7 +173,7 @@
             class="col-12 col-md-6 col-lg-3 d-flex flex-column align-items-center gap-1"
           >
             <img src="./images/img3.png" />
-            <h3>Loose Fit Permuda Shorts</h3>
+            <h3>Loose Permuda Shorts</h3>
             <div class="star-rating" data-rating="4"></div>
             <div class="priceshape">$80</div>
           </div>
@@ -185,14 +187,14 @@
             <div class="priceshape">$210</div>
           </div>
         </div>
-        <div class="text-center col-12">
+        <div class="text-center col-12 mb-4 mt-1">
           <button id="btntwo">view all</button>
         </div>
       </div>
       <!-- end of Fourth sevtion -->
 
       <!-- fifth Section Browse by styleeee again -->
-      <div class="row my-3 rounded-4 browse-container px-5 py-3" id="fifthdiv">
+      <div class="row my-3 rounded-4 px-5 py-3" id="fifthdiv">
         <div class="w-100 text-center my-4">
           <h1 class="fw-bolder" id="thirdtxt">BROWSE BY DRESS STYLE</h1>
         </div>
@@ -230,115 +232,66 @@
 
       <!-- sixth Section Browse by styleeee again -->
 
-      <div id="lasttxt" class="text-center">OUR HAPPY CUSTOMERS</div>
-      <div class="row align-items-stretch customer-testimonial">
-        <div class="col-md-4 my-3">
-          <div class="user-comment p-4 rounded-3 border border-1 bg-white">
-            <h1 class="text-warning fs-5"></h1>
+      <div class="flex-grow-1">
+        <h1 class="fw-bold mx-3" id="lasttxt">OUR HAPPY CUSTOMERS</h1>
+      </div>
+      <div class="row align-items-stretch customer-testimonial mx-3">
+        <div class="col-12 col-md-4 my-3">
+          <div
+            class="user-comment p-4 rounded-3 border border-1 bg-white col-12 col-md-4"
+          >
             <h1 class="fw-bold fs-4 my-3">
               <div class="star-rating" data-rating="4"></div>
-
-              Santina Kozey
+              Santina K.
               <i
                 class="fa fa-check-circle"
                 style="font-size: 20px; color: green"
               ></i>
-              <i class="fs-5 bi bi-check-circle-fill text-success"></i>
             </h1>
             <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime
+              "I'm blown away by the quality and style of the clothes I received
+              from Shop.co. From casual wear to elegant dresses, every piece
+              I've bought has exceeded my expectations.”
             </p>
           </div>
         </div>
-        <div class="col-md-4 my-3">
-          <div class="user-comment p-4 rounded-3 border border-1 bg-white">
-            <h1 class="text-warning fs-5"></h1>
+        <div class="col-12 col-md-4 my-3">
+          <div
+            class="user-comment p-4 rounded-3 border border-1 bg-white col-12 col-md-4"
+          >
             <h1 class="fw-bold fs-4 my-3">
               <div class="star-rating" data-rating="4"></div>
-
-              Wellington Rippin
+              Wellington R.
               <i
                 class="fa fa-check-circle"
                 style="font-size: 20px; color: green"
               ></i>
-              <i class="fs-5 bi bi-check-circle-fill text-success"></i>
             </h1>
             <p>
               "As someone who's always on the lookout for unique fashion pieces,
+              I'm thrilled to have stumbled upon Shop.co. The selection of
+              clothes is not only diverse but also on-point with the latest
+              trends.”
             </p>
           </div>
         </div>
-        <div class="col-md-4 my-3">
-          <div class="user-comment p-4 rounded-3 border border-1 bg-white">
-            <h1 class="text-warning fs-5"></h1>
+        <div class="col-12 col-md-4 my-3">
+          <div
+            class="user-comment p-4 rounded-3 border border-1 bg-white col-12 col-md-4"
+          >
             <h1 class="fw-bold fs-4 my-3">
               <div class="star-rating" data-rating="4"></div>
-
-              Elmira Rolfson
+              Elmira R.
               <i
                 class="fa fa-check-circle"
                 style="font-size: 20px; color: green"
               ></i>
-              <i class="fs-5 bi bi-check-circle-fill text-success"></i>
             </h1>
             <p>
-              Error iste laborum est provident. Consequatur quia nemo velit.
-              Eius quo et.
-            </p>
-          </div>
-        </div>
-        <div class="col-md-4 my-3">
-          <div class="user-comment p-4 rounded-3 border border-1 bg-white">
-            <h1 class="text-warning fs-5"></h1>
-            <h1 class="fw-bold fs-4 my-3">
-              <div class="star-rating" data-rating="4"></div>
-
-              Margret Lockman
-              <i
-                class="fa fa-check-circle"
-                style="font-size: 20px; color: green"
-              ></i>
-              <i class="fs-5 bi bi-check-circle-fill text-success"></i>
-            </h1>
-            <p>
-              Facere illo dicta sunt voluptatibus. Temporibus molestiae quae qui
-              hic voluptatibus consectetur saepe. Et quia totam arch
-            </p>
-          </div>
-        </div>
-        <div class="col-md-4 my-3">
-          <div class="user-comment p-4 rounded-3 border border-1 bg-white">
-            <h1 class="text-warning fs-5"></h1>
-            <h1 class="fw-bold fs-4 my-3">
-              <div class="star-rating" data-rating="4"></div>
-
-              Mazie Miller
-              <i
-                class="fa fa-check-circle"
-                style="font-size: 20px; color: green"
-              ></i>
-              <i class="fs-5 bi bi-check-circle-fill text-success"></i>
-            </h1>
-            <p>
-              Cumque voluptas ipsum ipsum possimus laboriosam consequatur cumque
-            </p>
-          </div>
-        </div>
-        <div class="col-md-4 my-3">
-          <div class="user-comment p-4 rounded-3 border border-1 bg-white">
-            <h1 class="text-warning fs-5"></h1>
-            <h1 class="fw-bold fs-4 my-3">
-              <div class="star-rating" data-rating="4"></div>
-
-              Maci Lind
-              <i
-                class="fa fa-check-circle"
-                style="font-size: 20px; color: green"
-              ></i>
-              <i class="fs-5 bi bi-check-circle-fill text-success"></i>
-            </h1>
-            <p>
-              Error ipsa aut. Qui unde et aliquam rerum. Aspernatur molestiae
+              "Finding clothes that align with my personal style used to be a
+              challenge until I discovered Shop.co. The range of options they
+              offer is truly remarkable, catering to a variety of tastes and
+              occasions.”
             </p>
           </div>
         </div>
