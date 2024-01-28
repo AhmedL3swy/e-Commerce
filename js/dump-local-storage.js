@@ -1,9 +1,9 @@
-const jsonFileURL ='assets/json/user-list.json';
+const userjsonFileURL ='assets/json/user-list.json';
 
 // Check if the key 'users' already exists in local storage
 if (!localStorage.getItem('users')) {
   // Fetch the JSON file
-  fetch(jsonFileURL)
+  fetch(userjsonFileURL)
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok');

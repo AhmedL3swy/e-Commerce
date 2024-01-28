@@ -50,7 +50,7 @@ $(function () {
     statusObj = {
       1: { title: 'Inactive', class: 'bg-label-secondary' },
       2: { title: 'Active', class: 'bg-label-success' },
-      3: { title: 'Pending', class: 'bg-label-warning' }
+      // 3: { title: 'Pending', class: 'bg-label-warning' }
     };
 
   if (select2.length) {
@@ -72,6 +72,7 @@ $(function () {
         { data: '' },
         { data:'id'},
         { data: 'full_name' },
+        { data: 'email'},
         { data: 'role' },
         { data: 'status' },
         { data: 'action' }
@@ -100,52 +101,30 @@ $(function () {
           }
         },
         {
-          // User full name and email
           targets: 2,
-          responsivePriority: 4,
+          responsivePriority: 3,
           render: function (data, type, full, meta) {
-            var $name = full['full_name'],
-              $email = full['email'],
-              $image = full['avatar'];
-            if ($image) {
-              // For Avatar image
-              var $output =
-                '<img src="' + assetsPath + 'img/avatars/' + $image + '" alt="Avatar" class="rounded-circle">';
-            } else {
-              // For Avatar badge
-              var stateNum = Math.floor(Math.random() * 6);
-              var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
-              var $state = states[stateNum],
-                $name = full['full_name'],
-                $initials = $name.match(/\b\w/g) || [];
-              $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
-              $output = '<span class="avatar-initial rounded-circle bg-label-' + $state + '">' + $initials + '</span>';
-            }
-            // Creates full output for row
-            var $row_output =
-              '<div class="d-flex justify-content-start align-items-center user-name">' +
-              '<div class="avatar-wrapper">' +
-              '<div class="avatar avatar-sm me-3">' +
-              $output +
-              '</div>' +
-              '</div>' +
-              '<div class="d-flex flex-column">' +
-              '<a href="' +
-              userView +
-              '" class="text-body text-truncate"><span class="fw-medium">' +
-              $name +
-              '</span></a>' +
-              '<small class="text-muted">' +
-              $email +
-              '</small>' +
-              '</div>' +
+            return '<div class="d-flex flex-column id">' +
+              '<span class="fw-bold text-truncate">' +
+              full['full_name'] +
+              '</span>' +
               '</div>';
-            return $row_output;
+          }
+        },
+        {
+          targets: 3,
+          responsivePriority: 3,
+          render: function (data, type, full, meta) {
+            return '<div class="d-flex flex-column id">' +
+              '<span class=" text-truncate">' +
+              full['email'] +
+              '</span>' +
+              '</div>';
           }
         },
         {
           // User Role Manipulation
-          targets: 3,
+          targets: 4,
           render: function (data, type, full, meta) {
             var $role = full['role'];
             var roleBadgeObj = {
@@ -170,7 +149,7 @@ $(function () {
         // },
         {
           // User Status Mainuplation
-          targets: 4,
+          targets: 5,
           render: function (data, type, full, meta) {
             var $status = full['status'];
 
@@ -264,7 +243,7 @@ $(function () {
               text: '<i class="bx bx-file me-2" ></i>Csv',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3,4],
+                columns: [1, 2, 3,4,5],
                 // prevent avatar to be display
                 format: {
                   body: function (inner, coldex, rowdex) {
@@ -288,7 +267,7 @@ $(function () {
               text: '<i class="bx bxs-file-export me-2"></i>Excel',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3,4],
+                columns: [1, 2, 3,4,5],
                 // prevent avatar to be display
                 format: {
                   body: function (inner, coldex, rowdex) {
@@ -312,7 +291,7 @@ $(function () {
               text: '<i class="bx bxs-file-pdf me-2"></i>Pdf',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3,4],
+                columns: [1, 2, 3,4,5],
                 // prevent avatar to be display
                 format: {
                   body: function (inner, coldex, rowdex) {
@@ -336,7 +315,7 @@ $(function () {
               text: '<i class="bx bx-copy me-2" ></i>Copy',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3,4],
+                columns: [1, 2, 3,4,5],
                 // prevent avatar to be display
                 format: {
                   body: function (inner, coldex, rowdex) {
@@ -411,7 +390,7 @@ $(function () {
       initComplete: function () {
         // Adding role filter once table initialized
         this.api()
-          .columns(3)
+          .columns(4)
           .every(function () {
             var column = this;
             var select = $(
@@ -456,7 +435,7 @@ $(function () {
         //   });
         // Adding status filter once table initialized
         this.api()
-          .columns(4)
+          .columns(5)
           .every(function () {
             var column = this;
             var select = $(
@@ -525,8 +504,7 @@ $(function () {
       full_name: $("#add-user-fullname").val(),
       role:  $("#user-role option:selected").text(),
       email: $("#add-user-email").val(),
-      status: Number($('#user-status').val()), // You can customize this as needed
-      avatar: ""
+      status: Number($('#user-status').val()) // You can customize this as needed
     }).draw();
   }
 
@@ -543,7 +521,7 @@ $(function () {
       // current_plan: $("#user-role option:selected").text(),
       // billing: "Manual - Cash", // You can customize this as needed
       status: Number($('#edit-user-status').val()), // You can customize this as needed
-      avatar: dt_user.row(rowIndex).data().avatar
+      // avatar: dt_user.row(rowIndex).data().avatar
     }).draw();
     
   }
