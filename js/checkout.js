@@ -35,15 +35,11 @@ if(localStorage.getItem("cart")!=null) {
 
 /*
 for (let i = 0 ; i < myProduct.length ; i++) {
-    console.log(myProduct[i].product.stock);
+    console.log(myProduct[i].product);
     console.log(myProduct[i].quantity);
     console.log(myProduct[i].product.stock -= myProduct[i].quantity);
 }
 */
-
-if(localStorage.getItem("purchase")!=null) {
-    arr = JSON.parse(localStorage.getItem("purchase"));
-}
 
 function displayCart() {
     // this should not adding the new rows
@@ -88,6 +84,7 @@ let ccvRegex = /^\d{3}$/;
 
 if (localStorage.getItem("purchase")!=null) {
     arr = JSON.parse(localStorage.getItem("purchase"));
+    console.log(arr);
 }
 
 
@@ -118,6 +115,10 @@ purchaseBTN.addEventListener("click" , function(e){
     else {
         for(let i = 0 ; i < myProduct.length ; i ++) {
             myProduct[i].product.stock -= myProduct[i].quantity;
+            myProduct[i].decreaseProductQuantity(myProduct[i].productId , myProduct[i].quantity);
+            if (myProduct[i].product.stock < 0) {
+                alert("there is no items from this product")
+            };
         }
     }
 
@@ -207,39 +208,31 @@ function validation(){
 
 
         let successPurchase = {
-            "u1": {
-                "1": {
-                    "orderId": 1,
-                    "orderName": myProduct[i].name,
-                    "price": myProduct[i].price,
-                    "quantity": myProduct[i].quantity,
-                    "status": 4,
-                    "details": `Size = ${myProduct[i].size}, Color = Blue`,
-                    "DeliveryDetails": `FullName = ${userFullName}, Address = ${UserAddress}, City = ${UserCity}, State = ${UserState}, Phone = ${UserMobile}`,
-                    "sellerId": "s1",
-                    "orderDate": getCurrentDate(),
-                },
-                "2": {
-                    "orderId": 2,
-                    "orderName": myProduct[i].name,
-                    "price": myProduct[i].price,
-                    "quantity": myProduct[i].quantity,
-                    "status": 4,
-                    "details": `Size = ${myProduct[i].size}, Color = Blue`,
-                    "DeliveryDetails": `FullName = ${userFullName}, Address = ${UserAddress}, City = ${UserCity}, State = ${UserState}, Phone = ${UserMobile}`,
-                    "sellerId": "s1",
-                    "orderDate": getCurrentDate(),
-                },
-                
-            },
+            userId: "u1", 
+            orderId: arr.length + 1, 
+            products: []
         };
-        
+
+        for (let i = 0; i < myProduct.length; i++) {
+            let orderItem = {
+                productId: myProduct[i].productId,
+                orderName: myProduct[i].product.productName,
+                price: myProduct[i].product.price,
+                quantity: myProduct[i].quantity,
+                status: 4,
+                details: `Size = ${myProduct[i].size}, Color = Blue`,
+                deliveryDetails: `FullName = ${userFullName}, Address = ${UserAddress}, City = ${UserCity}, State = ${UserState}, Phone = ${UserMobile}`,
+                sellerId: "s1",
+                orderDate: getCurrentDate(),
+            };
+            successPurchase.products.push(orderItem);
+        }
+
         arr.push(successPurchase);
         localStorage.setItem("purchase", JSON.stringify(arr));
-        
-
-    return true;
     }
+    return true;
+    
 }
 
 

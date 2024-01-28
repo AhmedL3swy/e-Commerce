@@ -1,23 +1,26 @@
 
 import Products from './database/Products.js';
 
+let currentQuantity=0;
+const quantityElement =document.getElementById('quantityDisplay');
+const innerTxtQuantity = quantityElement.textContent;
+currentQuantity = parseInt(innerTxtQuantity);
+
 // Initializing the Products module
 const products = new Products();
-console.log(products);
-
-
+// get product id from URL
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
-//const id = 'pid3'
-
+//get id from database
 var product =products.getProductById(id);
-console.log(product);
+
+const imgBig=product.thumbnail;
+console.log(product.thumbnail);
+
 const imgs = product.images.split(',');
 console.log(imgs[0]);
-let currentQuantity=1;
 
-// var bodyContent = 
-
+const priceAfterDiscount=((product.price * (100 - product.discount)) /100).toFixed(2);
 const imgDiv=document.getElementById('imgsContainer');
 let imgBlock='';
 imgBlock+=`<div class="d-flex align-items-center mb-3 side ">
@@ -37,7 +40,7 @@ imgBlock+=`<div class="d-flex align-items-center mb-3 side ">
         <div class=" rounded-4 mb-3 d-flex justify-content-center">
             <a data-fslightbox="mygalley" class="rounded-4" target="_blank" data-type="image" href="">
               <img id="img0" style="max-width: 100%; max-height: 100vh; margin: auto;"
-               class="rounded-4 fit" src="${imgs[0]}" />
+               class="rounded-4 fit" src="${imgBig}" />
             </a>
           </div>
       </div>`
@@ -59,16 +62,15 @@ const productBlock =` <h1 id="productName" class="title text-dark header">${prod
     ${product.rating}
     </span>
   </div>
- 
 </div>
 <div class="mb-3">
   <span class=" price">$</span>
-  <span id="newPrice" class=" price">${parseInt(product.price)}</span>
-  <span class=" oldPrice">$300</span>
+  <span id="newPrice" class=" price">${priceAfterDiscount}</span>
+  <span class=" oldPrice">$${product.price}</span>
   <span class=" discount" >
-  <span >-</span>
-  <span id="discountVal" >${product.discount}</span>
-  <span >%</span>
+ 
+  <span id="discountVal" >-${product.discount}%</span>
+  
 </span>
 </div>
 
@@ -78,51 +80,13 @@ ${product.details}
 <hr/>`
 productDiv.innerHTML=productBlock;
 
-
-  
-   const innerTxtQuantity = document.getElementById('quantityDisplay').textContent;
-   currentQuantity = parseInt(innerTxtQuantity, 10);
-
-
-// Function to decrease quantity
-function decreaseQuantity() {
-  if (currentQuantity != 0) {
-    return currentQuantity--;
-  }else
-  {
-    console.log("Cannot decrease beyond zero.");
-    return 0; 
-  }
-}
-
-// Function to increase quantity
-function increaseQuantity() {
-  return currentQuantity++;
- 
-}
-
-// Update the quantity display on the HTML page
-function updateQuantityDisplay() {
-  document.getElementById('quantityDisplay').textContent = currentQuantity;
-}
-
-// Function to handle decrease button click
-function decrease() {
-  currentQuantity.innerText = decreaseQuantity();
-  updateQuantityDisplay();
-}
-
-// Function to handle increase button click
-function increase() {
-  currentQuantity.innerHTML = increaseQuantity();
-  updateQuantityDisplay();
-}
 //###########################################################
 
        
         document.addEventListener('DOMContentLoaded', function () {
-          console.log(product.price);
            // Get elements
+           const minusBtn=document.getElementById('decrease');
+           const plusBtn=document.getElementById('increase');
            const addToCartButton = document.getElementById('addToCartBtn');
            const sizeButtons = document.querySelectorAll('.option');
         
@@ -153,23 +117,52 @@ function increase() {
           selectedButton.classList.add('selected');
       }
   }
-      
-  addToCartButton.addEventListener('click', function () {
-    const selectedSize = localStorage.getItem('selectedSize') || 'Medium';
 
-    const choosenProduct = {
-        id: id,
-        product: product,
-        size: selectedSize,
-        quantity: currentQuantity,
-    };
-
-    let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-    cartItems.push(choosenProduct);
-    localStorage.setItem('cart', JSON.stringify(cartItems));
-
-    alert('Product added to cart!');
-});
-
-        
+ // Update the quantity display on the HTML page
+function updateQuantityDisplay() {
+  document.getElementById('quantityDisplay').textContent = currentQuantity;
+}
+      minusBtn.addEventListener('click',function()
+      {
+        if (currentQuantity != 0) {
+        quantityElement.innerText=currentQuantity--;
+        }else
+        {
+          console.log("Cannot decrease beyond zero.");
+          return 0; 
+        }
+        updateQuantityDisplay();
       });
+      plusBtn.addEventListener('click',function()
+      {
+       quantityElement.innerHTML =  currentQuantity++;
+        updateQuantityDisplay();
+      });
+          // Add event listener to the "Add to Cart" button
+          addToCartButton.addEventListener('click', function () {
+              // Get selected options
+               // Default to Medium if no size selected
+              const selectedSize = localStorage.getItem('selectedSize') || 'Medium'; 
+              // Create an object to represent the product
+              const choosenProduct = {
+                 id:id,
+                 product: product,
+                  name: product.productName,
+                  size: selectedSize,
+                  price: priceAfterDiscount,
+                  quantity: currentQuantity
+              };
+      
+              // Get existing cart items from local storage
+              let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+              cartItems.push(choosenProduct)
+             // Save the updated cart items to local storage
+              localStorage.setItem('cart', JSON.stringify(cartItems));
+      
+              // Alert the user that the product has been added to the cart (you can replace this with a better UI)
+              alert('Product added to cart!');
+              
+          });
+          
+      });
+      
