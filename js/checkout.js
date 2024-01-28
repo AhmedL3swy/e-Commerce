@@ -32,11 +32,17 @@ if(localStorage.getItem("cart")!=null) {
     var myProduct = JSON.parse(localStorage.getItem("cart"));
     products.push(myProduct);
 }
-console.log(products);
+
+/*
+for (let i = 0 ; i < myProduct.length ; i++) {
+    console.log(myProduct[i].product.stock);
+    console.log(myProduct[i].quantity);
+    console.log(myProduct[i].product.stock -= myProduct[i].quantity);
+}
+*/
 
 if(localStorage.getItem("purchase")!=null) {
     arr = JSON.parse(localStorage.getItem("purchase"));
-    console.log(arr);
 }
 
 function displayCart() {
@@ -108,6 +114,11 @@ payment.addEventListener("change", function (e) {
 purchaseBTN.addEventListener("click" , function(e){
     if(!validation()){
         e.preventDefault();
+    }
+    else {
+        for(let i = 0 ; i < myProduct.length ; i ++) {
+            myProduct[i].product.stock -= myProduct[i].quantity;
+        }
     }
 
 });

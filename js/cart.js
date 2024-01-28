@@ -110,7 +110,7 @@ function Delete(index, button) {
 
   let productName = cart[index].product.productName;
   inputValue[index].value--;
-  price[index].innerHTML = Number(inputValue[index].value) * Number(cart[index].product.price);
+  price[index].innerHTML = (Number(inputValue[index].value) * Number(cart[index].product.price)).toFixed(2);
 
   updateCartQuantity(index, inputValue[index].value);
 
