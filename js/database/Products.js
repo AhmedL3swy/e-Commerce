@@ -151,7 +151,7 @@ class Products {
       // console.log(today)
       var difference = today - productDate;
       let days = difference / (1000 * 3600 * 24);
-      if (days <= 7) {
+      if (days <= 30) {
         newArrivals.push(products[i]);
       }
     }
