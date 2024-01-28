@@ -4,6 +4,9 @@
 
 'use strict';
 
+import AuthModule from './Authentication/AuthModule.js';
+
+AuthModule.isAdmin();
 
 // Datatable (jquery)
 $(function () {
@@ -101,7 +104,7 @@ $(function () {
           }
         },
         {
-          targets: 2,
+          targets: 3,
           responsivePriority: 3,
           render: function (data, type, full, meta) {
             return '<div class="d-flex flex-column id">' +
@@ -116,7 +119,7 @@ $(function () {
           responsivePriority: 3,
           render: function (data, type, full, meta) {
             return '<div class="d-flex flex-column id">' +
-              '<span class=" text-truncate">' +
+              '<span class="fw-bold text-truncate">' +
               full['email'] +
               '</span>' +
               '</div>';
@@ -152,7 +155,6 @@ $(function () {
           targets: 5,
           render: function (data, type, full, meta) {
             var $status = full['status'];
-
             return '<span class="badge ' + statusObj[$status].class + '">' + statusObj[$status].title + '</span>';
           }
         },
