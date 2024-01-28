@@ -27,6 +27,7 @@ let TotalPrice = document.querySelector(".Total");
 let DeliveryFee = document.querySelector(".fees");
 let subTotalPrice = 0;
 
+let activeuser = JSON.parse(localStorage.getItem("activeuser"));
 
 
 if (localStorage.getItem("cart")!=null) {
@@ -39,7 +40,7 @@ function displayCart() {
   document.querySelector(".left").innerHTML = "";
   let hamada = ``;
   for (let i=0 ;i<cart.length;i++){ 
-
+    if (cart[i].userID === activeuser.id) {
     const itemTotal = cart[i].product.price * cart[i].quantity;
     subTotalPrice += itemTotal;
 
@@ -64,6 +65,7 @@ function displayCart() {
     </div>
     `;
     document.querySelector(".left").innerHTML += hamada ;
+    }
   }
   updateTotalPrices();
 }
@@ -155,6 +157,7 @@ function updateCartQuantity(index, newQuantity ) {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-
 displayCart();
+
+
 

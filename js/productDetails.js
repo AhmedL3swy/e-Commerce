@@ -81,7 +81,7 @@ ${product.details}
 productDiv.innerHTML=productBlock;
 
 //###########################################################
-
+let activeuser = JSON.parse(localStorage.getItem("activeuser"));
        
         document.addEventListener('DOMContentLoaded', function () {
            // Get elements
@@ -146,6 +146,7 @@ function updateQuantityDisplay() {
               // Create an object to represent the product
               const choosenProduct = {
                  id:id,
+                 userID : activeuser.id,
                  product: product,
                   name: product.productName,
                   size: selectedSize,
