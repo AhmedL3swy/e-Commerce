@@ -115,6 +115,7 @@ document.querySelector("#checkOutForm").addEventListener("submit" , function(e) 
   }).then((result) => {
     
     window.location.href = "Shop.html";
+    localStorage.removeItem("cart");
   });
 });
 
