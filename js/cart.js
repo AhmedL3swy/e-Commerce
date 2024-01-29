@@ -34,48 +34,56 @@ if (localStorage.getItem("cart")!=null) {
   cart = JSON.parse(localStorage.getItem("cart"));
 }
 
+let mainIndex = 0;
 
 function displayCart() {
-  // this should not adding the new rows
   document.querySelector(".left").innerHTML = "";
   let hamada = ``;
-  for (let i=0 ;i<cart.length;i++){ 
-    if (cart[i].userID === activeuser.id) {
-    const itemTotal = cart[i].product.price * cart[i].quantity;
+
+  const activeUserCart = cart.filter(item => item.userID === activeuser.id);
+
+  activeUserCart.forEach((cartItem, index) => {
+    const itemTotal = cartItem.product.price * cartItem.quantity;
     subTotalPrice += itemTotal;
 
     hamada = `
-    <div class="product">
-    <img src="${cart[i].product.thumbnail}" alt="">
-    <div class="info">
-        <div class="text">
-            <h2>${cart[i].product.productName}</h2>
-            <p><span>Size: </span>${cart[i].product.size}</p>
+      <div class="product">
+        <img src="${cartItem.product.thumbnail}" alt="">
+        <div class="info">
+          <div class="text">
+            <h2>${cartItem.product.productName}</h2>
+            <p><span>Size: </span>${cartItem.product.size}</p>
             <p><span>Color: </span>White</p>
-            <h3>$<span class="price">${(cart[i].product.price * cart[i].quantity).toFixed(2)}</span></h3>
-        </div>
-        <div class="buttons">
-            <button class="trash" onclick = "Deletion(${i},this)"><i class="fa-solid fa-trash"></i></button>
+            <h3>$<span class="price">${(cartItem.product.price * cartItem.quantity).toFixed(2)}</span></h3>
+          </div>
+          <div class="buttons">
+            <button class="trash" onclick="deletion(${index}, this)"><i class="fa-solid fa-trash"></i></button>
             <div class="cart-container">
-                <button class="quantity-btn minus" onclick = "Delete(${i},this)">-</button>
-                <input readonly type="text" class="quantity-input" value="${cart[i].quantity}">
-                <button class="quantity-btn plus" onclick = "Adding(${i} ,this);">+</button>
-              </div>
+              <button class="quantity-btn minus" onclick="Delete(${index}, this)">-</button>
+              <input readonly type="text" class="quantity-input" value="${cartItem.quantity}">
+              <button class="quantity-btn plus" onclick="Adding(${index}, this);">+</button>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
     `;
-    document.querySelector(".left").innerHTML += hamada ;
-    }
-  }
+
+    document.querySelector(".left").innerHTML += hamada;
+  });
+
   updateTotalPrices();
 }
 
 
 function Adding(index, button) {
+  console.log(index);
+  //let mainIndex = button.parentNode.parentNode.parentNode.parentNode;
+  
   let inputValue = document.querySelectorAll(".quantity-input");
   let price = document.querySelectorAll(".price");
 
-  console.log(cart[index].product.stock);
+  console.log("activeuser.id:", activeuser.id);
+  console.log("cart[index].userID:", cart[index].userIDD);
 
   if (Number(inputValue[index].value) + 1 > cart[index].product.stock) {
     alert("Sorry, the selected quantity exceeds the available stock.");
@@ -91,6 +99,8 @@ function Adding(index, button) {
   localStorage.setItem("cart", JSON.stringify(cart));
   console.log("Adding successful!");
 }
+
+
 
 // button Trash to delete
 function Deletion(index, button) {
