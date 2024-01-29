@@ -9,6 +9,7 @@ window.addEventListener("load", function () {
     console.log("signup Clicked!!");
   });
 });
+let activeuser = JSON.parse(localStorage.getItem("activeuser"));
 
 let BackBTN = document.querySelector(".btn-two");
 let payment = document.querySelector("select[name=payment]");
@@ -116,7 +117,17 @@ document
       title: "Purchase successful",
     }).then((result) => {
       window.location.href = "Shop.html";
-      //localStorage.removeItem("cart");
+
+      const activeUserCart = myProduct.filter(
+        (item) => item.userID === activeuser.id
+      );
+      console.log("filtered cart", activeUserCart);
+      activeUserCart.forEach((myProductItem, index) => {});
+
+      const updatedTotalCart = myProduct.filter(
+        (item) => !activeUserCart.includes(item)
+      );
+      localStorage.setItem("cart", JSON.stringify(updatedTotalCart));
     });
   });
 
@@ -126,7 +137,6 @@ purchaseBTN.addEventListener("click", function (e) {
   }
 });
 
-let activeuser = JSON.parse(localStorage.getItem("activeuser"));
 function validation() {
   for (let i = 1; i <= 9; i++) {
     if (allInputs[i].value == "" || allInputs[i].value == null) {
