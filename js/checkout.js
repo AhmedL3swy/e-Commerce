@@ -194,49 +194,57 @@ function validation() {
     allInputs[9].style.border = "2px solid green";
   }
 
-  for (let i = 0; i < myProduct.length; i++) {
-    let userFullName = allInputs[1].value + " " + allInputs[2].value;
-    let UserMobile = allInputs[3].value;
-    let UserCity = allInputs[4].value;
-    let UserAddress = allInputs[5].value;
-    let UserState = state.value;
-
-    // let successPurchase = {
-    //     "orderId": 1,
-    //     "orderName": myProduct[i].name ,
-    //     "price": myProduct[i].price ,
-    //     "quantity" : myProduct[i].quantity,
-    //     "status": 4,
-    //     "details": `Size = ${myProduct[i].size}, Color = Blue`,
-    //     "DeliveryDetails": `FullName = ${userFullName}, Address = ${UserAddress}, City = ${UserCity}, State = ${UserState}, Phone = ${UserMobile}`,
-    //     "sellerId": "s1",
-    //     "orderDate": getCurrentDate(),
-    // };
-
-    let successPurchase = {
-      userId: activeuser.id,
-      orderId: arr.length + 1,
-      products: [],
+  // var orderDetails = {
+  //   userId: activeuser.id,
+  //   orderId: arr.length + 1,
+  //   products: [],
+  // };
+  
+  let userFullName = allInputs[1].value + " " + allInputs[2].value;
+  let UserMobile = allInputs[3].value;
+  let UserCity = allInputs[4].value;
+  let UserAddress = allInputs[5].value;
+  let UserState = state.value;
+  
+  // for (let i = 0; i < myProduct.length; i++) {
+  //   let product = myProduct[i];
+    
+    var orderDetails = {
+      userID: activeuser.id,
+      deliveryDetails: `FullName = ${userFullName}, Address = ${UserAddress}, City = ${UserCity}, State = ${UserState}, Phone = ${UserMobile}`,
+      status: 1,
+      details: `Size = ${myProduct.size}, Color = Blue`,   
+      orderDate: getCurrentDate(),
+      //orderId: findMaxOrderId(userData)+1,
+      productId: myProduct.productId,
+      orderName: `${myProduct.productName} x ${myProduct.quantity}`,
+      price: myProduct.price,
+      quantity: myProduct.quantity,
+      sellerId: "s1",
     };
-
-    for (let i = 0; i < myProduct.length; i++) {
-      let orderItem = {
-        productId: myProduct[i].productId,
-        orderName: myProduct[i].product.productName,
-        price: myProduct[i].product.price,
-        quantity: myProduct[i].quantity,
-        status: 4,
-        details: `Size = ${myProduct[i].size}, Color = Blue`,
-        deliveryDetails: `FullName = ${userFullName}, Address = ${UserAddress}, City = ${UserCity}, State = ${UserState}, Phone = ${UserMobile}`,
-        sellerId: "s1",
-        orderDate: getCurrentDate(),
-      };
-      successPurchase.products.push(orderItem);
+  // }
+  arr.push(orderDetails);
+  localStorage.setItem("purchase", JSON.stringify(arr));
+  function appendOrderToUser(userData, orderDetails) {
+    var { userID, ...restOrderDetails } = orderDetails;
+  
+    if (!userData[userID]) {
+      userData[userID] = {};
     }
-
-    arr.push(successPurchase);
-    localStorage.setItem("purchase", JSON.stringify(arr));
+  
+    var userOrders = userData[userID];
+    var orderId = orderDetails.orderId.toString(); 
+  
+    userOrders[orderId] = restOrderDetails;
+  
+    return userData;
   }
+  
+  var orders = JSON.parse(localStorage.getItem("orders")) || {};
+  var updatedOrders = appendOrderToUser(orders, orderDetails);
+  localStorage.setItem("orders", JSON.stringify(updatedOrders));
+
+
   return true;
 }
 
