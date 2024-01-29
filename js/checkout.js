@@ -41,10 +41,10 @@ function displayCart() {
   let hamada = ``;
   for (let i = 0; i < myProduct.length; i++) {
     if (myProduct[i].userID === activeuser.id) {
-    const itemTotal = myProduct[i].product.price * myProduct[i].quantity;
-    subTotalPrice += itemTotal;
+      const itemTotal = myProduct[i].product.price * myProduct[i].quantity;
+      subTotalPrice += itemTotal;
 
-    hamada = `
+      hamada = `
       <div class="product">
       <img src="${myProduct[i].product.thumbnail}" alt="">
       <div class="info">
@@ -61,9 +61,9 @@ function displayCart() {
           }">
       </div>
       `;
-    document.querySelector(".one").innerHTML += hamada;
+      document.querySelector(".one").innerHTML += hamada;
+    }
   }
-}
   updateTotalPrices();
 }
 
@@ -95,23 +95,36 @@ payment.addEventListener("change", function (e) {
     img.src = "images/america.png";
   }
 });
+document.querySelector("#checkOutForm").addEventListener("submit" , function(e) {
+  e.preventDefault();
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    },
+  });
+
+  Toast.fire({
+    icon: "success",
+    title: "Purchase successful",
+  }).then((result) => {
+    
+    window.location.href = "Shop.html";
+  });
+});
 
 purchaseBTN.addEventListener("click", function (e) {
   if (!validation()) {
     e.preventDefault();
-  } else {
-    for (let i = 0; i < myProduct.length; i++) {
-      myProduct[i].product.stock -= myProduct[i].quantity;
-      myProduct[i].decreaseProductQuantity(
-        myProduct[i].productId,
-        myProduct[i].quantity
-      );
-      if (myProduct[i].product.stock < 0) {
-        alert("there is no items from this product");
-      }
-    }
-  }
+  } 
 });
+
+
 let activeuser = JSON.parse(localStorage.getItem("activeuser"));
 function validation() {
   for (let i = 1; i <= 9; i++) {
@@ -189,7 +202,6 @@ function validation() {
     //     "orderDate": getCurrentDate(),
     // };
 
-    
     let successPurchase = {
       userId: activeuser.id,
       orderId: arr.length + 1,
@@ -315,3 +327,12 @@ function updateCartQuantity(index, newQuantity) {
 }
 
 displayCart();
+
+function success(event) {
+  event.preventDefault();
+  Swal.fire({
+    title: "Good job!",
+    text: "You Have been purchased the products!",
+    icon: "success",
+  });
+}
